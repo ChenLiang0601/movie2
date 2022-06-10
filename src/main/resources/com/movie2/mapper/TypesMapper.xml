@@ -13,4 +13,13 @@
         type_id, type
     </sql>
 
+<!--    添加类型-->
+    <insert id="addType" >
+        insert into types (type)
+        value (#{type});
+    </insert>
+<!--  删除类型  -->
+    <delete id="deleteType">
+        delete all from types where type_id=#{type_id};
+    </delete>
 </mapper>

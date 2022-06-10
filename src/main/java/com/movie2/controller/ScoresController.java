@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/scores")
 public class ScoresController {
-
+//add
+    //delete
 }
 

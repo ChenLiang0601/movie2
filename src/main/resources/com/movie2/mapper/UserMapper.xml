@@ -31,4 +31,9 @@
         values (#{username},#{password},#{age},#{sex},#{phonenumber},#{typeid})
     </insert>
 
+<!--    <delete id="deleteById" parameterType="Integer">-->
+<!--        delete  from user where user_id = #{user_id};-->
+<!--&#45;&#45;         delete  from scores where scores.user_id = #{user_id};-->
+<!--&#45;&#45;         delete  from comments where comments.user_id = #{user_id};-->
+<!--    </delete>-->
 </mapper>

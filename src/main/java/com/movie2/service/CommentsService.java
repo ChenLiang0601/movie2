@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-31
  */
 public interface CommentsService extends IService<Comments> {
-
+    //删除评论
+    boolean deleteComment(Integer user_id);
 }

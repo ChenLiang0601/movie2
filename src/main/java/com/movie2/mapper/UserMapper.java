@@ -13,12 +13,10 @@ import org.apache.ibatis.annotations.Param;
  * @since 2022-05-31
  */
 public interface UserMapper extends BaseMapper<User> {
+
+    //映射文件中SQL语句的id要和mapper接口中的方法名一致
     User findByUsernameAndPassword(@Param("username") String username,@Param("password")  String password);
 
-//    void save(User user);
 
-//    boolean register(User user);
 
-//    User register(@Param("username") String username, @Param("password")  String password, @Param("age") Integer age,
-//                  @Param("sex") String sex, @Param("phonenumber") Integer phonenymber, @Param("type_id") Integer type_id);
 }

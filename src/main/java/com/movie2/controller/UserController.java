@@ -2,15 +2,17 @@ package com.movie2.controller;
 
 
 import com.movie2.bean.User;
+import com.movie2.service.CommentsService;
+import com.movie2.service.ScoresService;
 import com.movie2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -23,14 +25,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class UserController {
-    @Autowired
+    @Resource
     private UserService userService;
+    @Resource
+    private CommentsService commentsService;
+    @Resource
+    private ScoresService scoresService;
+
 
     @RequestMapping("/")
     public String index() {
         return "user/userLogin";
     }
-
+//登录
     @RequestMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
         if (userService.userLogin(username, password) != null)
@@ -42,22 +49,25 @@ public class UserController {
     public String register2() {
         return "user/register";
     }
-
+//注册
     @RequestMapping("/register")
-//    public String register(@RequestParam("username") String username, @RequestParam("password") String password,
-//                           @RequestParam("age") Integer age,@RequestParam("sex") String sex,@RequestParam("phonenumber") String phonenymber,
-//                           @RequestParam("typeid") Integer typeid){
-//        userService.register(new User(username,password,age,sex,phonenymber,typeid));
-//        return "user/userLogin";
-
-
-
     public String register(User user){
-//        User user1 = new User();
-//        user.setPhonenumber(Integer.valueOf(user.getPhonenumber()));
         userService.register(user);
-
         return "user/userLogin";
     }
+
+    @RequestMapping("/deleteUser")
+    public String deleteUser(Integer user_id){
+        commentsService.deleteComment(user_id);
+        scoresService.deleteScore(user_id);
+        userService.deleteUser(user_id);
+        //返回userList页面
+        return "删除成功";
+    }
+    //update
+//    @GetMapping("userList")
+//    public String userList(){
+//        ;
+//    }
 }
 

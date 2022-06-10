@@ -16,4 +16,7 @@
         comments_id, user_id, comment, time, movie_id
     </sql>
 
+<!--    <delete id="deleteById" parameterType="Integer">-->
+<!--        delete  from comments where user_id = #{user_id}-->
+<!--    </delete>-->
 </mapper>

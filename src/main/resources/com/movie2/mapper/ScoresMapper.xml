@@ -14,4 +14,7 @@
         score_id, user_id, score
     </sql>
 
+<!--    <delete id="deleteById" parameterType="Integer">-->
+<!--        delete  from scores where user_id = #{user_id}-->
+<!--    </delete>-->
 </mapper>

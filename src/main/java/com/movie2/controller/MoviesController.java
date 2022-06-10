@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 @Controller
 @RequestMapping("/movies")
 public class MoviesController {
-
+//find
+    //delete
+    //add
 }
 

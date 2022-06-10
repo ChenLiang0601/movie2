@@ -1,11 +1,15 @@
 package com.movie2.service.impl;
 
 import com.movie2.bean.User;
+import com.movie2.mapper.CommentsMapper;
+import com.movie2.mapper.ScoresMapper;
 import com.movie2.mapper.UserMapper;
 import com.movie2.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -19,24 +23,17 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
      UserMapper userMapper;
+    @Resource
+    ScoresMapper scoresMapper;
+    @Resource
+    CommentsMapper commentsMapper;
 
-//    @Override
-//    public boolean register(String user) {
-//        boolean flag=false;
-//        try{
-//            userDao.save(user);
-//            flag=true;
-//        }catch(Exception e){
-//            System.out.println("新增失败!");
-//            e.printStackTrace();
-//        }
-//        return flag;
-//    }
 
     @Override
     public boolean register(User user) {
         boolean flag=false;
         try{
+
             userMapper.insert(user);
             flag=true;
         }catch(Exception e){
@@ -47,9 +44,48 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public boolean deleteUser(Integer id) {
-        return false;
+    public boolean deleteUser(Integer user_id) {
+        boolean flag=false;
+        try{
+//            commentsMapper.deleteById(user_id);
+//            scoresMapper.deleteById(user_id);
+            userMapper.deleteById(user_id);
+            flag=true;
+        }catch(Exception e){
+            System.out.println("删除失败user service!");
+            e.printStackTrace();
+        }
+        return flag;
     }
+//    @Override
+//    public boolean deleteScore(Integer user_id) {
+//        boolean flag=false;
+//        try{
+////            commentsMapper.deleteById(user_id);
+//            scoresMapper.deleteById(user_id);
+////            userMapper.deleteById(user_id);
+//            flag=true;
+//        }catch(Exception e){
+//            System.out.println("删除失败!");
+//            e.printStackTrace();
+//        }
+//        return flag;
+//    }
+//    @Override
+//    public boolean deleteUser(Integer user_id) {
+//        boolean flag=false;
+//        try{
+//            commentsMapper.deleteById(user_id);
+//            scoresMapper.deleteById(user_id);
+//            userMapper.deleteById(user_id);
+//            flag=true;
+//        }catch(Exception e){
+//            System.out.println("删除失败!");
+//            e.printStackTrace();
+//        }
+//        return flag;
+//    }
+
 
 
 

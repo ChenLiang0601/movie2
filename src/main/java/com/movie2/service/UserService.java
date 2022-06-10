@@ -17,8 +17,11 @@ public interface UserService extends IService<User> {
     boolean register(User user);
 
     //删除用户
-    boolean deleteUser(Integer id);
-
+    boolean deleteUser(Integer user_id);
+//    //删除评论
+//    boolean deleteComment(Integer user_id);
+//    //删除评分
+//    boolean deleteScore(Integer user_id);
     //用户登录
     User userLogin(String username,String password);
 
