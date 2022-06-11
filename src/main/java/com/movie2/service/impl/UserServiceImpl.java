@@ -1,7 +1,10 @@
 package com.movie2.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.movie2.bean.FindType;
 import com.movie2.bean.User;
 import com.movie2.mapper.CommentsMapper;
+import com.movie2.mapper.FindTypeMapper;
 import com.movie2.mapper.ScoresMapper;
 import com.movie2.mapper.UserMapper;
 import com.movie2.service.UserService;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -27,6 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     ScoresMapper scoresMapper;
     @Resource
     CommentsMapper commentsMapper;
+
 
 
     @Override
@@ -47,8 +52,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean deleteUser(Integer user_id) {
         boolean flag=false;
         try{
-//            commentsMapper.deleteById(user_id);
-//            scoresMapper.deleteById(user_id);
             userMapper.deleteById(user_id);
             flag=true;
         }catch(Exception e){
@@ -57,46 +60,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return flag;
     }
-//    @Override
-//    public boolean deleteScore(Integer user_id) {
-//        boolean flag=false;
-//        try{
-////            commentsMapper.deleteById(user_id);
-//            scoresMapper.deleteById(user_id);
-////            userMapper.deleteById(user_id);
-//            flag=true;
-//        }catch(Exception e){
-//            System.out.println("删除失败!");
-//            e.printStackTrace();
-//        }
-//        return flag;
-//    }
-//    @Override
-//    public boolean deleteUser(Integer user_id) {
-//        boolean flag=false;
-//        try{
-//            commentsMapper.deleteById(user_id);
-//            scoresMapper.deleteById(user_id);
-//            userMapper.deleteById(user_id);
-//            flag=true;
-//        }catch(Exception e){
-//            System.out.println("删除失败!");
-//            e.printStackTrace();
-//        }
-//        return flag;
-//    }
 
-
-
-
+    /**
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public User userLogin(String username,String password) {
         return userMapper.findByUsernameAndPassword(username,password);
     }
+/*更新用户信息*/
+    @Override
+    public boolean updateUser(User user) {
+        boolean flag=false;
+        try{
 
+            userMapper.updateById(user);
+            flag=true;
+            System.out.println("修改成功");
+        }catch(Exception e){
+            System.out.println("修改失败!");
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userMapper.findAllUser();
+    }
+
+
+///*根据id查找用户信息*/
 //    @Override
-//    public User register(String username, String password, Integer age, String sex, Integer phonenymber, Integer type_id) {
-//        return userMapper.register(username,password,age,sex,phonenymber,type_id);
+//    public FindType findUserById(Integer user_id) {
+//           return findTypeMapper.selectById(user_id);
+//
 //    }
+
 
 }

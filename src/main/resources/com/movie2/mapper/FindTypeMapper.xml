@@ -16,5 +16,8 @@
     <sql id="Base_Column_List">
         type, username, age, sex, phonenumber, password
     </sql>
-
+    <!--查询用户看到的用户信息-->
+    <select id="findUser" resultType="com.movie2.bean.FindType">
+        select * from find_type where username = #{username};
+    </select>
 </mapper>

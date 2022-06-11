@@ -17,6 +17,7 @@
     <sql id="Base_Column_List">
         user_id, username, password, age, sex, phonenumber, type_id
     </sql>
+    <!--用户登录-->
     <select id="findByUsernameAndPassword"  resultType="com.movie2.bean.User">
     SELECT username,password
     FROM user
@@ -25,15 +26,15 @@
         AND password = #{password}
 
     </select>
-
+<!--用户注册-->
     <insert id="insert" >
         insert into user (username,password,age,sex,phonenumber,typeid)
         values (#{username},#{password},#{age},#{sex},#{phonenumber},#{typeid})
     </insert>
+    <!--查找所有用户-->
+    <!--查找操作需要设置resoultType-->
+    <select id="findAllUser" resultType="com.movie2.bean.User">
+        select * from user
+    </select>
 
-<!--    <delete id="deleteById" parameterType="Integer">-->
-<!--        delete  from user where user_id = #{user_id};-->
-<!--&#45;&#45;         delete  from scores where scores.user_id = #{user_id};-->
-<!--&#45;&#45;         delete  from comments where comments.user_id = #{user_id};-->
-<!--    </delete>-->
 </mapper>
