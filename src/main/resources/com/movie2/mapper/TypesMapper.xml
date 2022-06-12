@@ -20,7 +20,7 @@
     </insert>
 <!--  删除类型  -->
     <delete id="deleteType">
-        delete all from types where type_id=#{type_id};
+        delete  from types where type_id=#{type_id};
     </delete>
     <!--通过类型名模糊查找-->
     <select id="findType" resultType="com.movie2.bean.Types">
