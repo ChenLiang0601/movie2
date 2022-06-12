@@ -36,7 +36,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean register(User user) {
         boolean flag=false;
         try{
-
             userMapper.insert(user);
             flag=true;
         }catch(Exception e){

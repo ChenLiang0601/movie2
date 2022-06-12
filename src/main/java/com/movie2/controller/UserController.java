@@ -39,7 +39,6 @@ public class UserController {
     @Resource
     private FindTypeService findTypeService;
 
-
     @RequestMapping("/")
     public String index() {
         return "user/userLogin";

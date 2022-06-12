@@ -3,7 +3,10 @@ package com.movie2.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import javax.annotation.Generated;
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 
 /**
  * <p>
@@ -31,7 +34,6 @@ public class Movies extends Model<Movies> {
     private String introduction;
 
     private String heat;
-
 
     public Integer getMovieId() {
         return movieId;
