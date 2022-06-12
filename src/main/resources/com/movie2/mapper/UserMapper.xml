@@ -36,5 +36,9 @@
     <select id="findAllUser" resultType="com.movie2.bean.User">
         select * from user
     </select>
+    <!--模糊查询用户-->
+    <select id="findUserByUsername" resultType="com.movie2.bean.User">
+        select * from user where username like concat('%',#{username},'%')
+    </select>
 
 </mapper>

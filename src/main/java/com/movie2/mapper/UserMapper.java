@@ -20,6 +20,10 @@ public interface UserMapper extends BaseMapper<User> {
     User findByUsernameAndPassword(@Param("username") String username,@Param("password")  String password);
 
     List<User> findAllUser();
+    /**
+     * 用户管理：通过用户名模糊查询用户，用于删除用户
+     */
+    List<User> findUserByUsername(@Param("username") String username);
 
 //    /**
 //     * 修改用户信息

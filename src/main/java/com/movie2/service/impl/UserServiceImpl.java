@@ -90,13 +90,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.findAllUser();
     }
 
-
-///*根据id查找用户信息*/
-//    @Override
-//    public FindType findUserById(Integer user_id) {
-//           return findTypeMapper.selectById(user_id);
-//
-//    }
-
+    @Override
+    public List<User> findUserByUsername(String username) {
+        return userMapper.findUserByUsername(username);
+    }
 
 }

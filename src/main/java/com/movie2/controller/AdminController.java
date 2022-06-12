@@ -3,9 +3,11 @@ package com.movie2.controller;
 
 import com.movie2.bean.Comments;
 import com.movie2.bean.Types;
+import com.movie2.bean.User;
 import com.movie2.service.AdminService;
 import com.movie2.service.CommentsService;
 import com.movie2.service.TypesService;
+import com.movie2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,6 +33,8 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private CommentsService commentsService;
+    @Autowired
+    private UserService userService;
 
     /*
     * 管理员登录
@@ -112,6 +116,19 @@ public class AdminController {
         return "comment/commentList";
     }
 
+    /**
+     * 通过用户名模糊查找用户
+     * 用于用户管理
+     * @param username
+     * @return
+     */
+    @RequestMapping("findUser")
+    public String findUserByUsername(String username){
+        userService.findUserByUsername(username);
+        List<User> users = userService.findUserByUsername(username);
+        System.out.println(users);
+        return "user/userList";
+    }
 
 }
 

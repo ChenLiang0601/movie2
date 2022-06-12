@@ -80,7 +80,7 @@ public class UserController {
         scoresService.deleteScore(user_id);
         userService.deleteUser(user_id);
         //返回userList页面
-        return "删除成功";
+        return "user/userList";
     }
     /**
     * 修改用户信息
@@ -126,6 +126,11 @@ public class UserController {
         return "/movie/movieInformation";
     }
 
+    /**
+     * 用户评分
+     * @param scores
+     * @return
+     */
     @RequestMapping("/addScore")
     public String addScore(Scores scores){
         scoresService.addScore(scores);
