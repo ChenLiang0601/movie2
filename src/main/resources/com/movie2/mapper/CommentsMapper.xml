@@ -15,8 +15,12 @@
     <sql id="Base_Column_List">
         comments_id, user_id, comment, time, movie_id
     </sql>
-
-<!--    <delete id="deleteById" parameterType="Integer">-->
-<!--        delete  from comments where user_id = #{user_id}-->
-<!--    </delete>-->
+    <!--评论管理：模糊查找评论-->
+    <select id="findComment" resultType="com.movie2.bean.Comments">
+        select * from comments where comment like concat('%',#{comment},'%');
+    </select>
+    <!--查找所有评论-->
+    <select id="findAllComments" resultType="com.movie2.bean.Comments">
+        select * from comments;
+    </select>
 </mapper>

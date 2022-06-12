@@ -22,4 +22,12 @@
     <delete id="deleteType">
         delete all from types where type_id=#{type_id};
     </delete>
+    <!--通过类型名模糊查找-->
+    <select id="findType" resultType="com.movie2.bean.Types">
+        select * from types where type like concat('%',#{type},'%');
+    </select>
+    <!--查找所有类型-->
+    <select id="findAllTypes" resultType="com.movie2.bean.Types">
+        select * from types;
+    </select>
 </mapper>

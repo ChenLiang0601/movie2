@@ -14,5 +14,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ScoresService extends IService<Scores> {
     //删除评分
     boolean deleteScore(Integer user_id);
+    /*
+    * 添加评分
+    * */
+    boolean addScore(Scores scores);
 
 }

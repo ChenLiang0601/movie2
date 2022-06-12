@@ -21,19 +21,19 @@ import org.springframework.stereotype.Controller;
 
 
 public class TypesController {
-    @Autowired
-    private TypesService typesService;
-
-    @RequestMapping("/types")
-    public String index() {
-        return "type/addType";
-    }
-//add
-    @RequestMapping("/addType")
-    public String addType(String type){
-        typesService.addType(type);
-        return "type/typeList";
-    }
+//    @Autowired
+//    private TypesService typesService;
+//
+//    @RequestMapping("/types")
+//    public String index() {
+//        return "type/addType";
+//    }
+////add
+//    @RequestMapping("/addType")
+//    public String addType(String type){
+//        typesService.addType(type);
+//        return "type/typeList";
+//    }
     //delete
     //find
 }

@@ -3,7 +3,11 @@ package com.movie2.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -24,7 +28,9 @@ public class User extends Model<User> {
 
     private String password;
 
-    private Integer age;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date age;
 
     private String sex;
 
@@ -67,11 +73,11 @@ public class User extends Model<User> {
         this.password = password;
     }
 
-    public Integer getAge() {
+    public Date getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(Date age) {
         this.age = age;
     }
 

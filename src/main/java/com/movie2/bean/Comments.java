@@ -3,7 +3,10 @@ package com.movie2.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -24,7 +27,8 @@ public class Comments extends Model<Comments> {
 
     private String comment;
 
-    private String time;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date time;
 
     private Integer movieId;
 
@@ -53,11 +57,11 @@ public class Comments extends Model<Comments> {
         this.comment = comment;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

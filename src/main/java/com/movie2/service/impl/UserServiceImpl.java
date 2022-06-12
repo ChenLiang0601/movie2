@@ -32,8 +32,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Resource
     CommentsMapper commentsMapper;
 
-
-
     @Override
     public boolean register(User user) {
         boolean flag=false;

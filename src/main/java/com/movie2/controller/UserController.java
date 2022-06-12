@@ -1,7 +1,9 @@
 package com.movie2.controller;
 
 
+import com.movie2.bean.Comments;
 import com.movie2.bean.FindType;
+import com.movie2.bean.Scores;
 import com.movie2.bean.User;
 import com.movie2.mapper.UserMapper;
 import com.movie2.service.CommentsService;
@@ -113,6 +115,22 @@ public class UserController {
         List<User> users = userService.findAllUser();
         System.out.println(users);
         return "user/userList";
+    }
+    /*
+    * 发表评论
+    * */
+    @RequestMapping("/addComment")
+    public String addComment(Comments comments){
+        commentsService.addComment(comments);
+        System.out.println(comments);
+        return "/movie/movieInformation";
+    }
+
+    @RequestMapping("/addScore")
+    public String addScore(Scores scores){
+        scoresService.addScore(scores);
+        System.out.println(scores);
+        return "/movie/movieInformation";
     }
 }
 

@@ -26,9 +26,7 @@ public class ScoresServiceImpl extends ServiceImpl<ScoresMapper, Scores> impleme
     public boolean deleteScore(Integer user_id) {
         boolean flag=false;
         try{
-//            commentsMapper.deleteById(user_id);
             scoresMapper.deleteById(user_id);
-//            userMapper.deleteById(user_id);
             flag=true;
         }catch(Exception e){
             System.out.println("删除失败 score service!");
@@ -36,4 +34,18 @@ public class ScoresServiceImpl extends ServiceImpl<ScoresMapper, Scores> impleme
         }
         return flag;
     }
+
+    @Override
+    public boolean addScore(Scores scores) {
+        boolean flag=false;
+        try{
+            scoresMapper.insert(scores);
+            flag=true;
+        }catch(Exception e){
+            System.out.println("评分失败!");
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
 }

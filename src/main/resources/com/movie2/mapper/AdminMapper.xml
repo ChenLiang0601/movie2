@@ -15,4 +15,13 @@
         admin_id, admin_username, admin_pwd, teliphomenumber
     </sql>
 
+    <!--管理员登录-->
+    <select id="adminLogin"  resultType="com.movie2.bean.Admin">
+        SELECT admin_username,admin_pwd
+        FROM admin
+        where
+            admin_username = #{admin_username}
+          AND admin_pwd = #{admin_pwd}
+
+    </select>
 </mapper>

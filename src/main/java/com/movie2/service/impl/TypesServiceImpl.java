@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -23,19 +24,6 @@ public class TypesServiceImpl extends ServiceImpl<TypesMapper, Types> implements
     TypesMapper typesMapper;
 
     //添加电影类型
-//    @Override
-//    public boolean addType(Types types){
-//        boolean flag=false;
-//        try{
-//
-//            typesMapper.insert(types);
-//            flag=true;
-//        }catch(Exception e){
-//            System.out.println("新增失败!");
-//            e.printStackTrace();
-//        }
-//        return flag;
-//    }
 
     @Override
     public Integer addType(String type) {
@@ -56,6 +44,21 @@ public class TypesServiceImpl extends ServiceImpl<TypesMapper, Types> implements
             e.printStackTrace();
         }
         return flag;
+    }
+
+    /*
+    * 查找类型
+    * */
+    @Override
+    public List<Types> findType(String type) {
+        return typesMapper.findType(type);
+    }
+    /*
+    * 查找所有类型
+    * */
+    @Override
+    public List<Types> findAllTypes() {
+        return typesMapper.findALLTypes();
     }
 
 }

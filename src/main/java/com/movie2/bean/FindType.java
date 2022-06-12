@@ -3,7 +3,11 @@ package com.movie2.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -21,11 +25,13 @@ public class FindType extends Model<FindType> {
 
     private String username;
 
-    private Integer age;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date age;
 
     private String sex;
 
-    private Integer phonenumber;
+    private String phonenumber;
 
     private String password;
 
@@ -46,11 +52,11 @@ public class FindType extends Model<FindType> {
         this.username = username;
     }
 
-    public Integer getAge() {
+    public Date getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(Date age) {
         this.age = age;
     }
 
@@ -62,11 +68,11 @@ public class FindType extends Model<FindType> {
         this.sex = sex;
     }
 
-    public Integer getPhonenumber() {
+    public String getPhonenumber() {
         return phonenumber;
     }
 
-    public void setPhonenumber(Integer phonenumber) {
+    public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
     }
 

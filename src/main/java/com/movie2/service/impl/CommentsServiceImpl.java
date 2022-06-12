@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -27,13 +30,43 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
         boolean flag=false;
         try{
             commentsMapper.deleteById(user_id);
-//            scoresMapper.deleteById(user_id);
-//            userMapper.deleteById(user_id);
             flag=true;
         }catch(Exception e){
             System.out.println("删除失败comment!");
             e.printStackTrace();
         }
         return flag;
+    }
+
+    /*
+    * 用户发表评论
+    * */
+    @Override
+    public boolean addComment(Comments comments){
+        comments.setTime(new Date());
+    boolean flag=false;
+        try{
+
+        commentsMapper.insert(comments);
+        flag=true;
+    }catch(Exception e){
+        System.out.println("发表评论失败!");
+        e.printStackTrace();
+    }
+        return flag;
+}
+    /*
+    * 管理员查找评论
+    * */
+    @Override
+    public List<Comments> findComment(String comment) {
+        return commentsMapper.findComment(comment);
+    }
+    /*
+    * 后台评论管理
+    * */
+    @Override
+    public List<Comments> findAllComments() {
+        return commentsMapper.findAllComments();
     }
 }
