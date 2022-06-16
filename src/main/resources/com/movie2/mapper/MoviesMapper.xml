@@ -17,5 +17,48 @@
     <sql id="Base_Column_List">
         movie_id, name, type_id, release_date, score, introduction, heat
     </sql>
+<!--通过名字模糊查询-->
+    <select id="findByName" resultType="com.movie2.bean.Movies">
+        Select
+        <include refid="Base_Column_List"/>
+        from movies where
+        <if test="name!=null and name!=''">
+            name like concat('%',#{name},'%')
+        </if>
+    </select>
+<!--    查找所有电影-->
+    <select id="findAllMovies" resultType="com.movie2.bean.Movies">
+        Select
+        <include refid="Base_Column_List"/>
+        from movies
+    </select>
 
+<!--    删除电影-->
+    <delete id="deleteMovie">
+        delete from movies where
+        <if test="movieId!=null and movieId!=''">
+            movie_id=#{movieId}
+        </if>
+    </delete>
+<!--    修改电影信息-->
+    <update id="updateMovie">
+        update movies
+        set
+        name = #{name},
+        type_id = #{typeId},
+        release_date = #{releaseDate},
+        score = #{score},
+        introduction = #{introduction},
+        heat = #{heat}
+        where
+        <if test="movieId!=null and movieId!=''">
+            movie_id=#{movieId}
+        </if>
+    </update>
+
+<!--    添加电影-->
+    <insert id="addMovie">
+        insert into movies (name,typeId,releaseDate,score,introduction,heat)
+        values (#{name},#{typeId},#{releaseDate},#{score},#{introduction},#{heat})
+    </insert>
 </mapper>
