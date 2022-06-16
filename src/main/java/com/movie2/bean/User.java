@@ -37,7 +37,6 @@ public class User extends Model<User> {
 
     private String phonenumber;
 
-    private Integer typeid;
 
 //    public User(String username, String password, Integer age, String sex, String phonenymber, Integer typeid) {
 //        this.username=  username;
@@ -97,13 +96,7 @@ public class User extends Model<User> {
         this.phonenumber = phonenumber;
     }
 
-    public Integer getTypeid() {
-        return typeid;
-    }
 
-    public void setTypeid(Integer typeid) {
-        this.typeid = typeid;
-    }
 
     @Override
     protected Serializable pkVal() {
@@ -113,13 +106,12 @@ public class User extends Model<User> {
     @Override
     public String toString() {
         return "User{" +
-        "userId=" + userId +
-        ", username=" + username +
-        ", password=" + password +
-        ", age=" + age +
-        ", sex=" + sex +
-        ", phonenumber=" + phonenumber +
-        ", typeid=" + typeid +
-        "}";
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                '}';
     }
 }

@@ -4,6 +4,8 @@ import com.movie2.bean.FindType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * VIEW Mapper 接口
@@ -14,5 +16,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface FindTypeMapper extends BaseMapper<FindType> {
 
-FindType findUser(@Param("username") String username);
+List<FindType> findUser(@Param("username") String username);
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public class FindTypeServiceImpl extends ServiceImpl<FindTypeMapper, FindType> i
     FindTypeMapper findTypeMapper;
     /*根据用户名查找用户信息*/
     @Override
-    public FindType findUser(String username) {
+    public List<FindType> findUser(String username) {
            return findTypeMapper.findUser(username);
 
     }

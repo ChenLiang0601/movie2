@@ -10,7 +10,6 @@
         <result column="age" property="age" />
         <result column="sex" property="sex" />
         <result column="phonenumber" property="phonenumber" />
-        <result column="type_id" property="typeId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -28,8 +27,8 @@
     </select>
 <!--用户注册-->
     <insert id="insert" >
-        insert into user (username,password,age,sex,phonenumber,typeid)
-        values (#{username},#{password},#{age},#{sex},#{phonenumber},#{typeid})
+        insert into user (username,password,age,sex,phonenumber)
+        values (#{username},#{password},#{age},#{sex},#{phonenumber})
     </insert>
     <!--查找所有用户-->
     <!--查找操作需要设置resoultType-->

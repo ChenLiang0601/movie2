@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.movie2.bean.FindType">
-        <result column="type" property="type" />
+        <result column="utype" property="utype" />
         <result column="username" property="username" />
         <result column="age" property="age" />
         <result column="sex" property="sex" />
@@ -14,10 +14,11 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        type, username, age, sex, phonenumber, password
+        utype, username, age, sex, phonenumber, password
     </sql>
     <!--查询用户看到的用户信息-->
     <select id="findUser" resultType="com.movie2.bean.FindType">
-        select * from find_type where username = #{username};
+        select *  from find_type where username = #{username}
+        ;
     </select>
 </mapper>

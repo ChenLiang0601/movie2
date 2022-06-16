@@ -1,15 +1,9 @@
 package com.movie2.controller;
 
 
-import com.movie2.bean.Comments;
-import com.movie2.bean.FindType;
-import com.movie2.bean.Scores;
-import com.movie2.bean.User;
+import com.movie2.bean.*;
 import com.movie2.mapper.UserMapper;
-import com.movie2.service.CommentsService;
-import com.movie2.service.FindTypeService;
-import com.movie2.service.ScoresService;
-import com.movie2.service.UserService;
+import com.movie2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +32,9 @@ public class UserController {
     private ScoresService scoresService;
     @Resource
     private FindTypeService findTypeService;
+    @Resource
+    UserTypeService userTypeService;
+
 
 
     @RequestMapping("/")
@@ -69,13 +66,15 @@ public class UserController {
      * @return
      */
     @RequestMapping("/register")
-    public String register(User user){
+    public String register(User user, UserType userType){
+        userTypeService.addUType(userType);
         userService.register(user);
         return "user/userLogin";
     }
 
     @RequestMapping("/deleteUser")
-    public String deleteUser(Integer user_id){
+    public String deleteUser(Integer user_id,String username){
+        userTypeService.deleteUType(username);
         commentsService.deleteComment(user_id);
         scoresService.deleteScore(user_id);
         userService.deleteUser(user_id);
@@ -86,7 +85,8 @@ public class UserController {
     * 修改用户信息
     */
     @RequestMapping("/updateUser")
-    public String updateUser(User user){
+    public String updateUser(User user,UserType userType){
+        userTypeService.updateUType(userType);
         userService.updateUser(user);
         System.out.println(user);
         return "user/userList";
@@ -98,8 +98,8 @@ public class UserController {
     @RequestMapping("/findUser")
     public String findUser(String username){
         findTypeService.findUser(username);
-        FindType findType = findTypeService.findUser(username);
-        System.out.println(findType);
+        List<FindType> findTypes = findTypeService.findUser(username);
+        System.out.println(findTypes);
         return "user/userInformation";
     }
 

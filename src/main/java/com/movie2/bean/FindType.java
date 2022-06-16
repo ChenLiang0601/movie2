@@ -21,8 +21,6 @@ public class FindType extends Model<FindType> {
 
     private static final long serialVersionUID=1L;
 
-    private String type;
-
     private String username;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -33,15 +31,16 @@ public class FindType extends Model<FindType> {
 
     private String phonenumber;
 
+    private String utype;
+
     private String password;
 
-
-    public String getType() {
-        return type;
+    public String getUtype() {
+        return utype;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUtype(String utype) {
+        this.utype = utype;
     }
 
     public String getUsername() {
@@ -92,12 +91,12 @@ public class FindType extends Model<FindType> {
     @Override
     public String toString() {
         return "FindType{" +
-        "type=" + type +
-        ", username=" + username +
-        ", age=" + age +
-        ", sex=" + sex +
-        ", phonenumber=" + phonenumber +
-        ", password=" + password +
-        "}";
+                "username='" + username + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", utype='" + utype + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
