@@ -95,4 +95,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.findUserByUsername(username);
     }
 
+    @Override
+    public User findOneUserByUsername(String username) {
+        return userMapper.findOneUserByUsername(username);
+    }
+
 }

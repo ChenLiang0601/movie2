@@ -1,13 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head lang="en">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>个人信息</title>
+    <link rel="stylesheet" href="static/css/reset.css" />
+    <link rel="stylesheet" href="static/css/updateuser.css" />
 </head>
 <body>
-<h1>用户信息</h1>
-<form action="/findUser" method="get">
+<div class="big">
+    <header>
+        <h1>个人信息</h1>
+        <form action="/" method="post">
+            <input id="d" type="image" src="static/img/return.png" />
+        </form>
+    </header>
+</div>
+<form  action="/findUser" method="post">
+    <section>
+        <div>
+            <h2 style="display:inline"><img id="t" src="static/img/username.png">用户名:</h2>
+            <p th:text="${user.username}" style="display:inline"></p>
+        </div>
+        <div th:each="user:${user}">
+            <img  th:src="@{static/upload/{id}(id=${user.img})}" width="100px" />
+        </div>
 
+
+        <div th:each="user:${user}">
+<!--            <img  th:src="@{static/upload/{id}(id=${user.getimg()})}" width="100px" />-->
+            <h2 style="display:inline"> <img id="t" src="static/img/password.png">密码：</h2>
+            <p th:text="${user.password}" style="display:inline"></p>
+        </div>
+        <div>
+            <h2 style="display:inline"><img id="t" src="static/img/birth.png">出生日期：</h2>
+            <p th:text="${user.age}" style="display:inline"></p>
+        </div>
+        <div>
+            <h2 style="display:inline"><img id="t" src="static/img/sex.png">性别：</h2>
+            <p th:text="${user.sex}" style="display:inline"></p>
+        </div>
+        <div>
+            <h2 style="display:inline"><img id="t" src="static/img/phonenum.png">电话：</h2>
+            <p th:text="${user.phonenumber}" style="display:inline"></p>
+        </div>
+        <div th:each="type :${userTypes}">
+            <h2 style="display:inline"><img id="t" src="static/img/xihuan.png">喜欢类型：</h2>
+            <p th:text="${type.utype}" style="display:inline"></p>
+        </div>
+
+    </section>
 </form>
+<form action="/toUpdate" method="post">
+    <div>
+        <input id="btn" type="submit" value="修改" style="text-align: center;" />
+    </div>
+</form>
+
+<footer>
+    <p>&copy Movie Recommond System by group 1 2022/06/17</p>
+</footer>
+
 </body>
+
 </html>

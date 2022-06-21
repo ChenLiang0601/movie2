@@ -20,7 +20,7 @@ import java.util.List;
  * @author CL
  * @since 2022-05-31
  */
-@RestController
+@Controller
 @RequestMapping("/movies")
 public class MoviesController {
     @Resource
@@ -40,6 +40,7 @@ public class MoviesController {
      * 显示所有电影
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "test2",method = RequestMethod.GET)
     public List<Movies> findAllMovies()
     {
@@ -66,9 +67,9 @@ public class MoviesController {
     /**
      * 添加电影
      */
-    @RequestMapping(value = "test5",method = RequestMethod.POST)
-    public boolean addMovie(Movies movies)
-    {
-        return moviesService.addMovie(movies);
-    }
+//    @RequestMapping(value = "test5",method = RequestMethod.POST)
+//    public boolean addMovie(Movies movies)
+//    {
+//        return moviesService.addMovie(movies);
+//    }
 }

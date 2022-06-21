@@ -37,6 +37,11 @@ public class User extends Model<User> {
 
     private String phonenumber;
 
+    private String img;
+
+    private String nickname;
+
+
 
 //    public User(String username, String password, Integer age, String sex, String phonenymber, Integer typeid) {
 //        this.username=  username;
@@ -96,7 +101,21 @@ public class User extends Model<User> {
         this.phonenumber = phonenumber;
     }
 
+    public String getImg() {
+        return img;
+    }
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     @Override
     protected Serializable pkVal() {
@@ -112,6 +131,8 @@ public class User extends Model<User> {
                 ", age=" + age +
                 ", sex='" + sex + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
+                ", img='" + img + '\'' +
+                ", nickname='" + nickname + '\'' +
                 '}';
     }
 }

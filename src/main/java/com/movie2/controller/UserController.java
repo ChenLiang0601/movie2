@@ -6,11 +6,15 @@ import com.movie2.mapper.UserMapper;
 import com.movie2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +38,8 @@ public class UserController {
     private FindTypeService findTypeService;
     @Resource
     UserTypeService userTypeService;
+    @Resource
+    MTypeService mTypeService;
 
 
 
@@ -49,28 +55,60 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    public String login(@RequestParam("username") String username, @RequestParam("password") String password) {
-        if (userService.userLogin(username, password) != null)
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
+        if (userService.userLogin(username, password) != null) {
+
+//            findTypeService.findUser(username);
+            System.out.println(username);
+            User user = userService.findOneUserByUsername(username);
+            List<UserType> userTypes = userTypeService.findUserType(user.getUsername());
+            System.out.println(userTypes);
+            session.setAttribute("user",user);
+
+
             return "user/loginSuccess";
+        }
         else
             return "user/userLogin";
     }
+
     @RequestMapping("/register2")
     public String register2() {
-        return "user/register";
+        return "user/egister";
     }
 
+    @RequestMapping("/toUserInfo")
+    public String toUserInfo(){
+        return "user/userInformation";}
+
+    @RequestMapping("/toUpdate")
+    public String toUpdate(){
+        return "user/updateuser";}
     /**
      * 用户注册
      * @param user
      * @return
      */
     @RequestMapping("/register")
-    public String register(User user, UserType userType){
-        userTypeService.addUType(userType);
+    public String register (User user,@RequestParam(value = "utype") List<String> utype, Model model){
+
+
+        List<FindType> findTypes = findTypeService.findUser(user.getUsername());
+        if(!findTypes.isEmpty())
+        {
+            model.addAttribute("msg", "用户已经存在");
+            return "user/register";
+        }
+
+        List<UserType> userTypes = new ArrayList<>();
+        for(String str:utype){
+            userTypes.add(new UserType(null,str,user.getUsername()));
+        }
+        userTypeService.addUType(userTypes);
+        System.out.println(userTypes);
         userService.register(user);
-        return "user/userLogin";
-    }
+        System.out.println(user);
+        return "user/userLogin";}
 
     @RequestMapping("/deleteUser")
     public String deleteUser(Integer user_id,String username){
@@ -85,8 +123,12 @@ public class UserController {
     * 修改用户信息
     */
     @RequestMapping("/updateUser")
-    public String updateUser(User user,UserType userType){
-        userTypeService.updateUType(userType);
+    public String updateUser(User user,@RequestParam(value = "utype") List<String> utype){
+        List<UserType> userTypes = new ArrayList<>();
+        for(String str:utype){
+            userTypes.add(new UserType(null,str,user.getUsername()));
+        }
+        userTypeService.updateUType(userTypes);
         userService.updateUser(user);
         System.out.println(user);
         return "user/userList";
@@ -96,10 +138,14 @@ public class UserController {
      * 用于用户信息页
      */
     @RequestMapping("/findUser")
-    public String findUser(String username){
-        findTypeService.findUser(username);
-        List<FindType> findTypes = findTypeService.findUser(username);
-        System.out.println(findTypes);
+    public String findUser(Model model,HttpSession session ){
+        User user = (User)session.getAttribute("user");
+        List<UserType> userTypes = userTypeService.findUserType(user.getUsername());
+//            System.out.println(userTypes);
+        model.addAttribute("user",user);
+        System.out.println(user);
+        model.addAttribute("userTypes",userTypes);
+        System.out.println(userTypes);
         return "user/userInformation";
     }
 
@@ -108,11 +154,13 @@ public class UserController {
      * 用于用户管理页
      * @return
      */
+//    @ResponseBody
     @RequestMapping("/findAll")
-    public String findAllUser(){
+    public String findAllUser(Model model){
         userService.findAllUser();
         //控制台输出
         List<User> users = userService.findAllUser();
+        model.addAttribute("allUser",users);
         System.out.println(users);
         return "user/userList";
     }
@@ -135,6 +183,14 @@ public class UserController {
     public String addScore(Scores scores){
         scoresService.addScore(scores);
         System.out.println(scores);
+        return "/movie/movieInformation";
+    }
+
+    @RequestMapping("/movieInfo")
+    public String movieInfo(Integer movieId){
+        mTypeService.movieinfo(movieId);
+        MType mType = mTypeService.movieinfo(movieId);
+        System.out.println(mType);
         return "/movie/movieInformation";
     }
 }

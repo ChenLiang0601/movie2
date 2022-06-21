@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -217,6 +217,7 @@
     <div class="container">
         <h1 style="color: white; margin: 0; text-align: center">Sign up</h1>
         <form action="/register" method="post">
+            <label><div th:text="${msg}"></div></label>
             <label><input type="text" name="age" placeholder="yyyy-MM-dd"></label>
             <label>
                 <input type="text" name="sex" placeholder="Sex">

@@ -30,4 +30,5 @@ public interface UserMapper extends BaseMapper<User> {
 //     * @param user
 //     */
 //    void updateUser(@Param("user") User user);
+    User findOneUserByUsername(@Param("username") String username);
 }

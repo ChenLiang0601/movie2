@@ -3,7 +3,10 @@ package com.movie2.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import javax.annotation.Generated;
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 
 /**
  * <p>
@@ -14,24 +17,31 @@ import java.io.Serializable;
  * @since 2022-05-31
  */
 public class Movies extends Model<Movies> {
-
     private static final long serialVersionUID=1L;
-
     @TableId(value = "movie_id", type = IdType.AUTO)
     private Integer movieId;
-
     private String name;
-
-    private Integer typeId;
-
+    private String types;
     private String releaseDate;
-
     private Integer score;
-
     private String introduction;
-
     private String heat;
+    private String director;
+    private String actor;
+    private String image;
 
+    public Movies(Integer movieId,String name,String types,String releaseDate,Integer score,String introduction,String heat,String director,String actor,String image){
+        this.movieId=movieId;
+        this.name=name;
+        this.types=types;
+        this.releaseDate=releaseDate;
+        this.score=score;
+        this.introduction=introduction;
+        this.heat=heat;
+        this.director=director;
+        this.actor=actor;
+        this.image=image;
+    }
 
     public Integer getMovieId() {
         return movieId;
@@ -49,12 +59,12 @@ public class Movies extends Model<Movies> {
         this.name = name;
     }
 
-    public Integer getTypeId() {
-        return typeId;
+    public String getTypes() {
+        return types;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
+    public void setTypes(String types) {
+        this.types = types;
     }
 
     public String getReleaseDate() {
@@ -89,6 +99,31 @@ public class Movies extends Model<Movies> {
         this.heat = heat;
     }
 
+    public String getDirector() {
+        return director;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+
     @Override
     protected Serializable pkVal() {
         return this.movieId;
@@ -99,11 +134,13 @@ public class Movies extends Model<Movies> {
         return "Movies{" +
         "movieId=" + movieId +
         ", name=" + name +
-        ", typeId=" + typeId +
+        ", types=" + types +
         ", releaseDate=" + releaseDate +
         ", score=" + score +
         ", introduction=" + introduction +
-        ", heat=" + heat +
+        ", director=" + director +
+        ", actor=" + actor +
+        ", image=" + image +
         "}";
     }
 }

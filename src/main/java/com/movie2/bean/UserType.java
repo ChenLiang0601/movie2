@@ -14,6 +14,15 @@ public class UserType extends Model<UserType> {
     private String username;
     private String utype;
 
+    public UserType() {
+    }
+
+    public UserType(Integer utid,  String utype,String username) {
+        this.utid = utid;
+        this.username = username;
+        this.utype = utype;
+    }
+
     public Integer getUtid() {
         return utid;
     }
