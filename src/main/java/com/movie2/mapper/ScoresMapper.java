@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2022-05-31
  */
 public interface ScoresMapper extends BaseMapper<Scores> {
-
+//    /**
+//     * 电影评分
+//     */
+//    Scores findScore();
 }

@@ -7,14 +7,19 @@
         <id column="score_id" property="scoreId" />
         <result column="user_id" property="userId" />
         <result column="score" property="score" />
+        <result column="movieid" property="movieid"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        score_id, user_id, score
+        score_id, user_id, score, movieid
     </sql>
 
 <!--    <delete id="deleteById" parameterType="Integer">-->
 <!--        delete  from scores where user_id = #{user_id}-->
 <!--    </delete>-->
+    <!--查找电影评分的平均值-->
+<!--    <select id="findScore" resultType="com.movie2.bean.Scores">-->
+<!--        select avg(score) score from scores where movieid=#{movieid}-->
+<!--    </select>-->
 </mapper>

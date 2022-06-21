@@ -24,6 +24,12 @@ public interface MoviesService extends IService<Movies> {
      * @return
      */
     List<Movies> findAllMovies();
+
+    /**
+     * 查找
+     * @return
+     */
+    Movies findById(Integer movieId);
     /**
      * 删除电影
      */

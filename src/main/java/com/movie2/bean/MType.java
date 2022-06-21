@@ -23,8 +23,6 @@ public class MType extends Model<MType> {
 
     private String name;
 
-    private Integer typeId;
-
     private String releaseDate;
 
     private Integer score;
@@ -56,14 +54,6 @@ public class MType extends Model<MType> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
     }
 
     public String getReleaseDate() {
@@ -109,7 +99,6 @@ public class MType extends Model<MType> {
         "type=" + type +
         ", movieId=" + movieId +
         ", name=" + name +
-        ", typeId=" + typeId +
         ", releaseDate=" + releaseDate +
         ", score=" + score +
         ", introduction=" + introduction +

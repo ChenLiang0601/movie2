@@ -7,22 +7,32 @@
         <id column="utid" property="utid" />
         <result column="username" property="username" />
         <result column="utype" property="utype" />
+
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         utid, username, utype
     </sql>
-
+<!--int addUType(List<UserType> usertype)-->
     <insert id="addUType">
-        insert into usertype (username,utype)
-        value (#{username},#{utype})
+        insert into usertype values
+        <foreach collection="userTypes" item="usertype" separator=",">
+            (null ,#{usertype.utype},#{usertype.username})
+        </foreach>
     </insert>
 
     <delete id="deleteByUsername">
         delete from usertype where username = #{username};
     </delete>
-    <!--    <delete id="deleteById" parameterType="Integer">-->
-    <!--        delete  from scores where user_id = #{user_id}-->
-    <!--    </delete>-->
+    <!--Integer updateUtype(@Param("userTypes") List<UserType> userTypes);-->
+    <update id="upadteUType">
+        <foreach collection="userTypes" item="usertype" separator=",">
+        update usertype set username = #{usertype.username},utype = #{usertype.utype}
+        </foreach>
+    </update>
+    <!--List<UserType> findUserType(@Param("username") String username);-->
+    <select id="findUserType" resultType="com.movie2.bean.UserType">
+        select group_concat(utype) as utype from usertype where username = #{username}
+    </select>
 </mapper>

@@ -10,6 +10,8 @@
         <result column="age" property="age" />
         <result column="sex" property="sex" />
         <result column="phonenumber" property="phonenumber" />
+        <result column="img" property="img"/>
+        <result column="nickname" property="nickname"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -39,5 +41,8 @@
     <select id="findUserByUsername" resultType="com.movie2.bean.User">
         select * from user where username like concat('%',#{username},'%')
     </select>
-
+<!--User findOneUserByUsername(@Param("username") String username);-->
+    <select id="findOneUserByUsername" resultType="com.movie2.bean.User">
+        select * from user where username = #{username}
+    </select>
 </mapper>

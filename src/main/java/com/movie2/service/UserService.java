@@ -38,4 +38,8 @@ public interface UserService extends IService<User> {
     * 管理员查找用户
     * */
     List<User> findUserByUsername(String username);
+    /**
+     * 查找用户
+     */
+    User findOneUserByUsername(String username);
 }

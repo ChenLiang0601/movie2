@@ -20,6 +20,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <mybatis-spring-boot>1.2.0</mybatis-spring-boot>
         <pagehelper>1.2.3</pagehelper>
     </properties>
@@ -34,7 +36,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <scope>test</scope><exclusions>
+            <exclusion>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+        </exclusions>
         </dependency>
 
         <dependency>
@@ -89,6 +96,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.7</version>
         </dependency>
+
         <!--thymeleaf模板引擎依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -100,16 +108,46 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!--pagehelper分页工具类  -->
         <!--<dependency>-->
         <!--<groupId>com.github.pagehelper</groupId>-->
         <!--<artifactId>pagehelper-spring-boot-starter</artifactId>-->
         <!--<version>${pagehelper}</version>-->
         <!--</dependency>-->
-
+        <!--分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.5</version>
+        </dependency>
 
     </dependencies>
-
+<!--    <build>-->
+<!--        <finalName>oa</finalName>-->
+<!--        &lt;!&ndash; 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 &ndash;&gt;-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/java</directory>-->
+<!--                <includes>-->
+<!--                    <include>**/*.properties</include>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                </includes>-->
+<!--                <filtering>false</filtering>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <includes>-->
+<!--                    <include>**/*.properties</include>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                </includes>-->
+<!--                <filtering>false</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--    </build>-->
 <!--    <build>-->
 <!--    <resources>-->
 <!--        &lt;!&ndash; 打包resource里的项目配置文件 &ndash;&gt;-->

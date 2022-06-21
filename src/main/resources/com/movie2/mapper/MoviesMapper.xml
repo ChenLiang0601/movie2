@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.movie2.mapper.MoviesMapper">
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.movie2.bean.Movies">
         <id column="movie_id" property="movieId" />
         <result column="name" property="name" />
-        <result column="type_id" property="typeId" />
+        <result column="types" property="types" />
         <result column="release_date" property="releaseDate" />
         <result column="score" property="score" />
         <result column="introduction" property="introduction" />
         <result column="heat" property="heat" />
+        <result column="director" property="director"/>
+        <result column="actor" property="actor"/>
+        <result column="image" property="image"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        movie_id, name, type_id, release_date, score, introduction, heat
+        movie_id, name, types, release_date, score, introduction, heat ,director, actor, image
     </sql>
 <!--通过名字模糊查询-->
     <select id="findByName" resultType="com.movie2.bean.Movies">
@@ -26,13 +28,27 @@
             name like concat('%',#{name},'%')
         </if>
     </select>
-<!--    查找所有电影-->
-    <select id="findAllMovies" resultType="com.movie2.bean.Movies">
+
+    <select id="findById" resultType="com.movie2.bean.Movies">
         Select
         <include refid="Base_Column_List"/>
-        from movies
+        from movies where
+        <if test="name!=null and name!=''">
+            movie_id=#{movieId}
+        </if>
     </select>
-
+<!--    查找所有电影-->
+<!--    <select id="findAllMovies" resultType="com.movie2.bean.Movies">-->
+<!--        Select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from movies-->
+<!--    </select>-->
+    <select id="findAllMovies" resultMap="BaseResultMap">
+        Select
+        <include refid="Base_Column_List"/>
+        from
+        movies
+    </select>
 <!--    删除电影-->
     <delete id="deleteMovie">
         delete from movies where
@@ -58,7 +74,7 @@
 
 <!--    添加电影-->
     <insert id="addMovie">
-        insert into movies (name,typeId,releaseDate,score,introduction,heat)
-        values (#{name},#{typeId},#{releaseDate},#{score},#{introduction},#{heat})
+        insert into movies (name,types,releaseDate,score,introduction,heat,director, actor, image)
+        values (#{name},#{types},#{releaseDate},#{score},#{introduction},#{heat},#{director},#{actor},#{image})
     </insert>
 </mapper>

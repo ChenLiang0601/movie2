@@ -24,6 +24,8 @@ public class Scores extends Model<Scores> {
 
     private String score;
 
+    private Integer movieid;
+
 
     public Integer getScoreId() {
         return scoreId;
@@ -49,6 +51,14 @@ public class Scores extends Model<Scores> {
         this.score = score;
     }
 
+    public Integer getMovieid() {
+        return movieid;
+    }
+
+    public void setMovieid(Integer movieid) {
+        this.movieid = movieid;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.scoreId;
@@ -57,9 +67,10 @@ public class Scores extends Model<Scores> {
     @Override
     public String toString() {
         return "Scores{" +
-        "scoreId=" + scoreId +
-        ", userId=" + userId +
-        ", score=" + score +
-        "}";
+                "scoreId=" + scoreId +
+                ", userId=" + userId +
+                ", score='" + score + '\'' +
+                ", movieid=" + movieid +
+                '}';
     }
 }

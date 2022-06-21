@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>用户列表</title>
 </head>
 <body>
 <h1>用户列表</h1>
+<div>
+    <div th:each="user :${allUser}">
+        <div th:text="${user.username}">
+
+        </div>
+        <div th:text="${user.password}"></div>
+    </div>
+</div>
+
 </body>
 </html>

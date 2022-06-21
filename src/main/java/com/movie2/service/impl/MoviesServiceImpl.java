@@ -1,5 +1,6 @@
 package com.movie2.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.movie2.bean.Movies;
 import com.movie2.bean.Types;
 import com.movie2.mapper.MoviesMapper;
@@ -36,6 +37,11 @@ public class MoviesServiceImpl extends ServiceImpl<MoviesMapper, Movies> impleme
     }
 
     @Override
+    public Movies findById(Integer movieId) {
+        return moviesMapper.findById(movieId);
+    }
+
+    @Override
     public boolean deleteMovie(Integer movieId) {
         boolean flag=false;
         try{
@@ -64,6 +70,7 @@ public class MoviesServiceImpl extends ServiceImpl<MoviesMapper, Movies> impleme
     @Override
     public boolean addMovie(Movies movies) {
         boolean flag=false;
+        JSONObject result = new JSONObject();
         try{
             moviesMapper.insert(movies);
             flag=true;

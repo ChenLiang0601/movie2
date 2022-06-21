@@ -19,4 +19,9 @@ public interface ScoresService extends IService<Scores> {
     * */
     boolean addScore(Scores scores);
 
+//    /**
+//     * 电影评分
+//     */
+//    Scores findScore();
+
 }

@@ -48,4 +48,9 @@ public class ScoresServiceImpl extends ServiceImpl<ScoresMapper, Scores> impleme
         return flag;
     }
 
+//    @Override
+//    public Scores findScore() {
+//        return scoresMapper.findScore();
+//    }
+
 }
