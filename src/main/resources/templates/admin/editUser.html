@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>电影信息</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" tppabs="../../static/layui/css/layui.css" media="all">
+</head>
+<body>
+<blockquote class="layui-elem-quote layui-text">
+    <h2>添加信息</h2>
+</blockquote>
+
+<form class="layui-form" th:action="@{/admin/toEditUser}" method="post">
+    <!--隐藏字段action，用来区分增加和编辑行为-->
+    <input type="hidden" name="action" id="action">
+    <!--隐藏字段id，用于提供编辑需要的主键-->
+    <input type="hidden" name="id" id="id">
+    <!--隐藏字段request_type，用于提供请求方式:get,post,put-->
+<!--    <input th:value="${user.userId}" type="hidden" name="request_type" id="request_type">-->
+    <input th:value="${user.userId}" type="hidden" name="userId" id="request_type">
+    <input type="hidden" name="movieId" id="movieId">
+    <div class="layui-form-item" style="display: table;width: 96%">
+        <div class="layui-form-item" style="display: table-cell;width: 50%">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input th:value="${user.username}" type="text" id="username" name="username" placeholder="请输入用户名称"
+                       autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item" style="display: table-cell;width: 50%">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input th:value="${user.password}" type="text" id="password" name="password" placeholder="请输入密码"
+                       autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="display: table;width: 96%">
+        <!--        <div class="layui-form-item" style="display: table-cell;width: 50%">-->
+        <!--            <label class="layui-form-label">发布日期</label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" name="releaseDate" id="releaseDate" autocomplete="off" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="layui-form-item" style="display: table-cell;width: 50%">
+            <label class="layui-form-label">出生日期</label>
+            <div class="layui-input-block">
+                <input th:value="${#dates.format(user.age,'yyyy-MM-dd')}" type="text" name="age" id="date1" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="display: table-cell;width: 50%">
+            <label class="layui-form-label">性&emsp;&emsp;别</label>
+            <div class="layui-input-block">
+                <input th:value="${user.sex}" type="text" id="sex" name="sex" placeholder="请输入性别"
+                       autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item" style="display: table;width: 96%">
+        <div class="layui-form-item" style="display: table-cell;width: 50%">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-block">
+                <input th:value="${user.phonenumber}" type="text" name="phonenumber" placeholder="请输入电话号码"
+                       autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item" style="display: table-cell;width: 50%">
+            <label class="layui-form-label">昵&emsp;&emsp;称</label>
+            <div class="layui-input-block">
+                <input th:value="${user.nickname}" type="text" name="nickname" placeholder="请输入昵称"
+                       autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+    </div>
+    <center>
+    <input th:value="${user.img}" type="hidden" name="img" class="image">
+    <div class="layui-form-item" style="display: table;width: 96%">
+        <label class="layui-form-label ">照片:</label>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="test1">上传图片</button>
+            <div class="layui-upload-list">
+                <img width="50%" height="auto" th:src="@{../../static/image/{id}(id=${user.img})}" class="layui-upload-img" id="demo1">
+                <p id="demoText"></p>
+            </div>
+        </div>
+    </div>
+    </center>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script src="../../static/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+
+        var layer = layui.layer
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#age'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/admin/uploadFile/'
+            ,accept:'images'
+            ,size:50000
+            ,before: function(obj){
+
+                obj.preview(function(index, file, result){
+
+                    $('#demo1').attr('src', result);
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #4cae4c;">上传成功</span>');
+                //将图片的名字放在表单中，添加的时候得放在数据库里面
+                $(function(){
+                    $("#fileName").val(res.msg);
+                })
+                var fileupload = $(".image");
+                fileupload.attr("value",res.msg);
+                console.log(fileupload.attr("value"));
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+    });
+</script>
+</body>
+</html>

@@ -2,17 +2,13 @@ package com.movie2.controller;
 
 
 import com.movie2.bean.*;
-import com.movie2.mapper.UserMapper;
 import com.movie2.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -192,6 +188,11 @@ public class UserController {
         MType mType = mTypeService.movieinfo(movieId);
         System.out.println(mType);
         return "/movie/movieInformation";
+    }
+    @RequestMapping("/index")
+    public String index(Movies movies){
+        System.out.println(movies);
+        return "/index";
     }
 }
 

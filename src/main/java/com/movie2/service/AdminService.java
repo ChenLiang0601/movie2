@@ -1,6 +1,6 @@
 package com.movie2.service;
 
-import com.movie2.bean.Admin;
+import com.movie2.bean.*;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.movie2.vo.adminMovieVo;
 import com.movie2.vo.dataVo;
@@ -20,4 +20,10 @@ public interface AdminService extends IService<Admin> {
     Admin adminLogin(String adminUsername,String adminPwd);
     dataVo<adminMovieVo> finddata(int pageNum, int pageSize);
     dataVo<adminMovieVo> searchMovie(int pageNum, int pageSize,String name);
+    dataVo<User> findUser(int pageNum, int pageSize);
+    dataVo<User> searchUser(int pageNum, int pageSize,String username);
+    dataVo<Types> findTypes(int pageNum, int pageSize);
+    dataVo<Types> searchTypes(int pageNum, int pageSize,String type);
+    dataVo<CommentView> findComments(int pageNum, int pageSize);
+    dataVo<CommentView> searComments(int pageNum, int pageSize,String comment);
 }

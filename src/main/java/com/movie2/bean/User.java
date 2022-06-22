@@ -34,7 +34,6 @@ public class User extends Model<User> {
 
     private String sex;
 
-
     private String phonenumber;
 
     private String img;

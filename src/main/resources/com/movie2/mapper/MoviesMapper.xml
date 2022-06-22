@@ -61,11 +61,14 @@
         update movies
         set
         name = #{name},
-        type_id = #{typeId},
+        types = #{types},
         release_date = #{releaseDate},
         score = #{score},
         introduction = #{introduction},
-        heat = #{heat}
+        heat = #{heat},
+        director = #{director},
+        actor = #{actor},
+        image = #{image}
         where
         <if test="movieId!=null and movieId!=''">
             movie_id=#{movieId}

@@ -15,4 +15,13 @@
         name, username, comment, time
     </sql>
 
+    <select id="findAllComments" resultType="com.movie2.bean.CommentView">
+        select * from comment_view
+    </select>
+
+    <!--评论管理：模糊查找评论-->
+    <select id="findComment" resultType="com.movie2.bean.CommentView">
+        select * from comment_view where comment like concat('%',#{comment},'%')
+    </select>
+
 </mapper>

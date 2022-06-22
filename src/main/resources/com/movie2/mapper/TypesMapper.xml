@@ -22,12 +22,27 @@
     <delete id="deleteType">
         delete all from types where type_id=#{type_id};
     </delete>
+
+    <!--    修改类型信息-->
+    <update id="updateTypes">
+        update movies
+        set
+        type_id = #{typeId},
+        type = #{type}
+        where
+        <if test="typeId!=null and typeId!=''">
+            type_id=#{typeId}
+        </if>
+    </update>
+
     <!--通过类型名模糊查找-->
     <select id="findType" resultType="com.movie2.bean.Types">
-        select * from types where type like concat('%',#{type},'%');
+        select * from types where type like concat('%',#{type},'%')
     </select>
     <!--查找所有类型-->
     <select id="findAllTypes" resultType="com.movie2.bean.Types">
-        select * from types;
+        select
+        <include refid="Base_Column_List"/>
+        from types
     </select>
 </mapper>

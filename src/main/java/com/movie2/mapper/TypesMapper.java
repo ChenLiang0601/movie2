@@ -15,15 +15,15 @@ import java.util.List;
  * @since 2022-05-31
  */
 public interface TypesMapper extends BaseMapper<Types> {
-/*
+/**
 * 添加电影类型
 * */
     Integer addType(@Param("type") String type);
-    /*
+    /**
     * 查找所有电影类型
     * */
-    List<Types> findALLTypes();
-    /*
+    List<Types> findAllTypes();
+    /**
     * 查找单个类型（模糊查找）
     * */
     List<Types> findType(@Param("type") String type);

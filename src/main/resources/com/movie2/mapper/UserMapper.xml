@@ -29,8 +29,8 @@
     </select>
 <!--用户注册-->
     <insert id="insert" >
-        insert into user (username,password,age,sex,phonenumber)
-        values (#{username},#{password},#{age},#{sex},#{phonenumber})
+        insert into user (username,password,age,sex,phonenumber,img,nickname)
+        values (#{username},#{password},#{age},#{sex},#{phonenumber},#{img},#{nickname})
     </insert>
     <!--查找所有用户-->
     <!--查找操作需要设置resoultType-->

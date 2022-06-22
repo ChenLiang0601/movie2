@@ -30,8 +30,6 @@ public class TypesServiceImpl extends ServiceImpl<TypesMapper, Types> implements
         return typesMapper.addType(type);
     }
 
-
-
     //    删除电影类型
     @Override
     public boolean deleteType(Integer type_id) {
@@ -41,6 +39,19 @@ public class TypesServiceImpl extends ServiceImpl<TypesMapper, Types> implements
             flag=true;
         }catch(Exception e){
             System.out.println("删除失败!");
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean updateTypes(Types types) {
+        boolean flag=false;
+        try{
+            typesMapper.updateById(types);
+            flag=true;
+        }catch(Exception e){
+            System.out.println("修改失败!");
             e.printStackTrace();
         }
         return flag;
@@ -58,7 +69,7 @@ public class TypesServiceImpl extends ServiceImpl<TypesMapper, Types> implements
     * */
     @Override
     public List<Types> findAllTypes() {
-        return typesMapper.findALLTypes();
+        return typesMapper.findAllTypes();
     }
 
 }

@@ -1,10 +1,9 @@
 package com.movie2.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
 import com.movie2.bean.Movies;
 import com.movie2.service.MoviesService;
-import com.movie2.service.UserService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ import java.util.List;
  * @since 2022-05-31
  */
 @Controller
-@RequestMapping("/movies")
+@RequestMapping("/movie")
 public class MoviesController {
     @Resource
     private MoviesService moviesService;

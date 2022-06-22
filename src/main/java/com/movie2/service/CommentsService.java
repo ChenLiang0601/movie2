@@ -16,6 +16,9 @@ import java.util.List;
 public interface CommentsService extends IService<Comments> {
     //删除评论
     boolean deleteComment(Integer user_id);
+
+    //删除评论
+    boolean delete(String comment);
     /*
     * 添加评论
     * */

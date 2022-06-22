@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" tppabs="../../static/layui/css/layui.css" media="all">
+<!--    <link rel="stylesheet" href="layui/css/layui.css" tppabs="../../static/layui/css/layui.css" media="all">-->
+
+</head>
+<body>
+<style type="text/css">
+    .layui-table-cell{
+        text-align:center;
+        height: auto;
+        white-space: normal;
+    }
+    .layui-table img{
+        max-width:100%
+    }
+</style>
+
+<!--头部-->
+<div style="margin: 10px 0 10px 1%;width: 99%">
+    <div style="display: table-cell">
+        <form class="layui-form" id="search_form">
+            <div class="layui-input-block" style="display: table-cell">
+                <!--            <label>&emsp;接&emsp;口&emsp;</label>-->
+                <div class="layui-input-inline" style="width: 260px">
+                    <input type="text" name="username" placeholder="请输入用户名称 支持模糊查询"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div style="display: table-cell">
+                <button class="layui-btn layui-btn-sm layui-btn-danger" lay-submit lay-filter="search"
+                        style="margin-left: 15px"><i class="layui-icon">&#xe615;</i>搜&emsp;索
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                    <i class="layui-icon">&#xe631;</i>重&emsp;置
+                </button>
+            </div>
+        </form>
+    </div>
+    <div style="display: table-cell">
+        <div style="display: table">
+            <!--新增-->
+            <div style="display: table-cell">
+                <button id="add" class="layui-btn layui-btn-sm" style="margin-left: 15px">
+                    <i class="layui-icon">&#xe608;</i> 新&emsp;增
+                </button>
+            </div>
+            <!--刷新-->
+            <div style="display: table-cell;">
+                <button id="refresh" class="layui-btn layui-btn-normal layui-btn-sm" style="margin-left: 15px">
+                    <i class="layui-icon">&#xe669;</i> 刷&emsp;新
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script src="../../static/layui/layui.js" charset="utf-8"></script>
+<script src="../../static/js/libs/jquery-2.1.1.min.js"></script>
+<script src="./../static/utils/common.js"></script>
+
+<!--<script src="layui/layui.js" charset="utf-8"></script>-->
+<!--<script src="js/libs/jquery-2.1.1.min.js"></script>-->
+<!--<script src="utils/common.js"></script>-->
+
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script>
+    layui.use(['table', 'layer', 'form', 'laypage','upload', 'element','layedit', 'laydate'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.jquery;
+        table.render({
+            elem: '#test'
+            , id: 'UserReload'
+            , url: '/admin/userList'
+            , even: true //开启隔行背景
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , request: {
+                pageName: 'pageNum',
+                limitName: 'pageSize'
+            }
+            , title: '用户数据表'
+            , page: true
+            , limit: 10
+            , limits: [1, 5, 10, 20, 50, 100]
+            , cols: [
+                [
+                    { type: 'checkbox'}
+                    , { field: 'userId', title: 'ID', width: 80,  unresize: true, sort: true }
+                    , { field: 'username', title: '用户名', width: 150,  }
+                    , { field: 'password', title: '密码', width: 150,  }
+                    , { field: 'age', title: '出生日期', width: 150, sort: true }
+                    , { field: 'sex', title: '性别', width: 100 }
+                    , { field: 'phonenumber', title: '电话号码',width: 150 }
+                    , { field: 'nickname', title: '昵称', width: 150 }
+                    , { field: 'img', title: '头像', width: 120 , align : 'center',templet: function(res){
+                        return  '<img src=" ../../static/image/' +res.img +'"/>'
+                    }}
+                    , { title: '操作', toolbar: '#barDemo', width: 150 }
+                ]
+            ]
+        });
+
+        $("#refresh").click(function () {
+            // 执行一个表格重载即实现刷新功能
+            table.reload('UserReload', {
+                where: '',
+                contentType: 'application/x-www-form-urlencoded',
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                },
+                url: '/admin/userList',
+                method: 'get'
+            });
+        });
+
+        //点击添加按钮弹窗
+        $("#add").click(function () {
+            layui.use('layer', function () {
+                layer.open({
+                    title: '添加信息',
+                    type: 2,
+                    content: 'addUser',
+                    area: ['800px', '500px'],
+                    maxmin: true
+                })
+            })
+        })
+
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            };
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            var userId = data.userId;
+            //console.log(obj)
+            switch (layEvent) {
+                case 'edit':
+                    layui.use('layer', function () {
+                        layer.open({
+                            title: '编辑用户信息',
+                            type: 2,
+                            content: 'editUser?userId=' + userId,
+                            area: ['800px', '500px'],
+                            maxmin: true
+                        })
+                    });
+                    break;
+                case 'del':
+                    layer.confirm('真的删除该行么', function (index) {
+                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                        //向服务端发送删除指令
+                        $.ajax({
+                            type: "DELETE",  //数据提交方式(post/get)
+                            url: "/admin/deleteUser?userId=" + userId,  //提交到的url
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",//返回的数据类型格式
+                            success: function (result) {
+                                layer.msg(result.msg, {icon: 1, time: 1000});
+                            }, error: function (e) {
+                                console.log(e, 'error');
+                                layer.msg("删除用户异常，请稍后再试", {icon: 1, time: 1000});
+                            }
+                        });
+                        layer.close(index);
+                    });
+                    break;
+            }
+        });
+        // 监听搜索按钮提交事件
+        form.on('submit(search)', function (data) {
+            var formData = data.field;
+            var count = checkForm("search_form");
+            if (count !== 0) {
+                //数据表格重载
+                tableReload('UserReload', formData, "application/json; charset=utf-8", '/admin/searchUser?username='+formData.username, 'post');
+            } else {
+                parent.layer.msg('请先选择查询条件！', {icon: 2, time: 1500});
+            }
+            return false;
+        });
+    });
+</script>
+
+</body>
+
+</html>
