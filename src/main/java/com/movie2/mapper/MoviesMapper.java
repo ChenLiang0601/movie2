@@ -19,4 +19,17 @@ public interface MoviesMapper extends BaseMapper<Movies> {
     List<Movies> findByName(String name);
     List<Movies> findAllMovies();
     Movies findById(Integer movieId);
+    /**
+     * 最热电影
+     */
+    List<Movies> findByHeat();
+    /**
+     * 最新电影
+     */
+    List<Movies> findBytime();
+    /**
+     * 猜你喜欢
+     * @param uType
+     */
+    List<Movies> findByType(String uType);
 }

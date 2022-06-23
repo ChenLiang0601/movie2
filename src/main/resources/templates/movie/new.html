@@ -1,0 +1,38 @@
+<!--
+ * @Description: 
+ * @Author: Chen-Liang
+ * @Date: 2022-06-21 17:08:55
+ * @LastEditors: Chen-Liang
+ * @LastEditTime: 2022-06-21 18:11:23
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新电影</title>
+    <link rel="stylesheet" href="static/css/home.css">
+</head>
+
+<body>
+    <div>
+        <h1>Top 25</h1>
+        <li>
+            <div class="item" th:each="hot:${newest}">
+                <a href="/movieInfo"><img class="pic" th:src="@{../../static/image/{id}(id=${hot.image})}"></img></a>
+                <div class="info">
+                    <div class="name" th:text="${hot.name}">获取电影名称</div>
+                    <div class="acter">
+                        <div th:text="${hot.director}"></div><br>
+                        <div th:text="${hot.types}">获取电影类型</div>
+                    </div>
+                    <div class="score" th:text="${hot.releaseDate}" th:pattern="YYYY-MM-DD">上映时间</div>
+                </div>
+            </div>
+        </li>
+    </div>
+</body>
+
+</html>

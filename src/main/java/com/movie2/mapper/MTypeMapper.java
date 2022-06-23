@@ -13,5 +13,5 @@ import org.apache.ibatis.annotations.Param;
  * @since 2022-05-31
  */
 public interface MTypeMapper extends BaseMapper<MType> {
- MType movieInfo(@Param("movie_id") Integer movieId);
+ MType movieInfo(@Param("movie_id") Integer movie_id);
 }

@@ -45,4 +45,5 @@
     <select id="findOneUserByUsername" resultType="com.movie2.bean.User">
         select * from user where username = #{username}
     </select>
+
 </mapper>

@@ -1,0 +1,27 @@
+<!--
+ * @Description:
+ * @Author: Chen-Liang
+ * @Date: 2022-06-21 15:48:33
+ * @LastEditors: Chen-Liang
+ * @LastEditTime: 2022-06-21 18:09:32
+-->
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页</title>
+    <link rel="stylesheet" href="static/css/home.css">
+</head>
+
+<body>
+<div>
+    <div class="c" th:each="movie:${allMovie}">
+        <a href="/movieInfo"><img class="a" th:src="@{../../static/image/{id}(id=${movie.image})}"></img></a>
+        <div class="b" th:text="${movie.name}"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -46,4 +46,16 @@ public interface MoviesService extends IService<Movies> {
      * @return
      */
     boolean addMovie(Movies movies);
+    /**
+     * 最热电影
+     */
+    List<Movies> findByHeat();
+    /**
+     * 最新电影
+     */
+    List<Movies> findBytime();
+    /**
+     * 猜你喜欢
+     */
+    List<Movies> findByType(String uType);
 }

@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,9 +23,9 @@ import java.util.List;
  */
 @Service
 public class MoviesServiceImpl extends ServiceImpl<MoviesMapper, Movies> implements MoviesService {
-    @Autowired
+    @Resource
     MoviesMapper moviesMapper;
-    @Autowired
+    @Resource
     TypesMapper typesMapper;
     @Override
     public List<Movies> findMovie(String name) {
@@ -32,7 +33,7 @@ public class MoviesServiceImpl extends ServiceImpl<MoviesMapper, Movies> impleme
     }
 
     @Override
-    public List<Movies> findAllMovies(){
+    public  List<Movies> findAllMovies(){
         return moviesMapper.findAllMovies();
     }
 
@@ -79,5 +80,32 @@ public class MoviesServiceImpl extends ServiceImpl<MoviesMapper, Movies> impleme
             e.printStackTrace();
         }
         return flag;
+    }
+
+    /**
+     * 最热电影
+     * @return
+     */
+    @Override
+    public List<Movies> findByHeat() {
+        return moviesMapper.findByHeat();
+    }
+
+    /**
+     * 最新电影
+     * @return
+     */
+    @Override
+    public List<Movies> findBytime() {
+        return moviesMapper.findBytime();
+    }
+
+    /**
+     * 猜你喜欢
+     * @return
+     */
+    @Override
+    public List<Movies> findByType(String uType) {
+        return moviesMapper.findByType(uType);
     }
 }

@@ -16,5 +16,5 @@ public interface MTypeService extends IService<MType> {
 /**
  * 电影信息展示，包括电影评分
  */
- MType movieinfo(Integer movieId);
+ MType movieinfo(Integer movie_id);
 }

@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -39,15 +40,17 @@ public class UserController {
     @Resource
     UserTypeService userTypeService;
     @Resource
+    TypesService typesService;
+    @Resource
+    MoviesService moviesService;
+    @Resource
     MTypeService mTypeService;
 
 
 
-    @RequestMapping("/")
-    public String index() {
-        return "user/userLogin";
-    }
 
+    @RequestMapping("/toLogin")
+    public String toLogin(){return "user/userLogin";}
     /**
      * 用户登录
      * @param username
@@ -64,13 +67,19 @@ public class UserController {
             List<UserType> userTypes = userTypeService.findUserType(user.getUsername());
             System.out.println(userTypes);
             session.setAttribute("user",user);
+//            model.addAttribute("user",user);
 
-
-            return "user/loginSuccess";
+            session.setAttribute("userTypes",userTypes);
+//            System.out.println(session);
+            return "redirect:/index";
         }
         else
-            return "user/userLogin";
+            return "redirect:/toLogin";
     }
+    @RequestMapping("/SingOut")
+    public String SingOut (HttpSession session){
+        session.removeAttribute("user");
+        return "redirect:/toLogin";}
 
     @RequestMapping("/register2")
     public String register2() {
@@ -104,6 +113,8 @@ public class UserController {
         for(String str:utype){
             userTypes.add(new UserType(null,str,user.getUsername()));
         }
+        List<Types> types = typesService.findAllTypes();
+        model.addAttribute("types",types);
         userTypeService.addUType(userTypes);
         System.out.println(userTypes);
         userService.register(user);
@@ -187,11 +198,41 @@ public class UserController {
     }
 
     @RequestMapping("/movieInfo")
-    public String movieInfo(Integer movieId){
-        mTypeService.movieinfo(movieId);
-        MType mType = mTypeService.movieinfo(movieId);
+    public String movieInfo(Integer movie_id,Model model){
+       MType mType = mTypeService.movieinfo(movie_id);
+        model.addAttribute("movieInfo",mType);
         System.out.println(mType);
+        System.out.println(model);
         return "/movie/movieInformation";
     }
+    @RequestMapping("/like")
+    public String like(Model model,HttpSession session){
+        List<UserType> userTypes = (List<UserType>) session.getAttribute("userTypes");
+        List<Movies> movies = new LinkedList<>();
+        for(UserType ut:userTypes)
+            movies.addAll(moviesService.findByType(ut.getUtype()));
+//        List<Movies> movies = moviesService.findByType(userType.getUtype());
+        model.addAttribute("movieInfos",movies);
+        System.out.println(movies);
+        System.out.println(model);
+        return "/movie/like";
+    }
+    /**
+     * 用户搜索电影
+     */
+    @RequestMapping("/searchMovie")
+    public String Search(Model model,String name,HttpSession session){
+        List<Movies> movies = moviesService.findMovie(name);
+        session.setAttribute("results",movies);
+        model.addAttribute("allMovie",movies);
+        System.out.println(model);
+        return "/movie/search";}
+
+//    @RequestMapping("/toResults")
+//    public String toResults(HttpSession session,Model model){
+//        List<Movies> movies =(List<Movies>)session.getAttribute("results");
+//        model.addAttribute("results",movies);
+//        return "/movie/search";
+//    }
 }
 

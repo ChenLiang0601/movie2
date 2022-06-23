@@ -38,11 +38,6 @@
         </if>
     </select>
 <!--    查找所有电影-->
-<!--    <select id="findAllMovies" resultType="com.movie2.bean.Movies">-->
-<!--        Select-->
-<!--        <include refid="Base_Column_List"/>-->
-<!--        from movies-->
-<!--    </select>-->
     <select id="findAllMovies" resultMap="BaseResultMap">
         Select
         <include refid="Base_Column_List"/>
@@ -77,4 +72,16 @@
         insert into movies (name,types,releaseDate,score,introduction,heat,director, actor, image)
         values (#{name},#{types},#{releaseDate},#{score},#{introduction},#{heat},#{director},#{actor},#{image})
     </insert>
+    <!--最热电影 ：List<Movies> findByHeat()-->
+    <select id="findByHeat" resultType="com.movie2.bean.Movies">
+        select * from movies order by heat desc;
+    </select>
+    <!--最新电影List<Movies> findBytime();-->
+    <select id="findBytime" resultType="com.movie2.bean.Movies">
+        select * from movies order by release_date desc;
+    </select>
+    <select id="findByType" resultType="com.movie2.bean.Movies">
+        select * from movies where types like concat('%',#{types},'%')
+    </select>
+
 </mapper>

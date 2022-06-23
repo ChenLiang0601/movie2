@@ -3,9 +3,12 @@ package com.movie2.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.annotation.Generated;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -22,7 +25,9 @@ public class Movies extends Model<Movies> {
     private Integer movieId;
     private String name;
     private String types;
-    private String releaseDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date releaseDate;
     private Integer score;
     private String introduction;
     private String heat;
@@ -30,7 +35,7 @@ public class Movies extends Model<Movies> {
     private String actor;
     private String image;
 
-    public Movies(Integer movieId,String name,String types,String releaseDate,Integer score,String introduction,String heat,String director,String actor,String image){
+    public Movies(Integer movieId,String name,String types,Date releaseDate,Integer score,String introduction,String heat,String director,String actor,String image){
         this.movieId=movieId;
         this.name=name;
         this.types=types;
@@ -67,11 +72,11 @@ public class Movies extends Model<Movies> {
         this.types = types;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 

@@ -22,7 +22,7 @@ public class MTypeServiceImpl extends ServiceImpl<MTypeMapper, MType> implements
     @Resource
     MTypeMapper mTypeMapper;
     @Override
-    public MType movieinfo(Integer movieId) {
-        return mTypeMapper.movieInfo(movieId);
+    public MType movieinfo(Integer movie_id) {
+        return mTypeMapper.movieInfo(movie_id);
     }
 }

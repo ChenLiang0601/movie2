@@ -11,11 +11,14 @@
         <result column="score" property="score" />
         <result column="introduction" property="introduction" />
         <result column="heat" property="heat" />
+        <result column="director" property="director"/>
+        <result column="actor" property="actor"/>
+        <result column="image" property="image"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        type, movie_id, name, release_date, score, introduction, heat
+        type, movie_id, name, release_date, score, introduction, heat, director, actor,image
     </sql>
 <!--movieInfo-->
     <select id="movieInfo" resultType="com.movie2.bean.MType">
