@@ -23,4 +23,13 @@
     <select id="findAllComments" resultType="com.movie2.bean.Comments">
         select * from comments;
     </select>
+
+    <!--    删除评论-->
+    <delete id="deleteByComment">
+        delete from comments where
+        <if test="comment!=null and comment!=''">
+            comment=#{comment}
+        </if>
+    </delete>
+
 </mapper>

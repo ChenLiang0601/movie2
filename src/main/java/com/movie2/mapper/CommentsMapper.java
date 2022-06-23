@@ -2,6 +2,7 @@ package com.movie2.mapper;
 
 import com.movie2.bean.Comments;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface CommentsMapper extends BaseMapper<Comments> {
     * 评论管理主页：查找所有评论
     * */
     List<Comments> findAllComments();
+
+    Integer deleteByComment(@Param("comment") String comment);
 }

@@ -34,7 +34,7 @@ public interface UserService extends IService<User> {
  */
     List<User> findAllUser();
 
-    /*
+    /**
     * 管理员查找用户
     * */
     List<User> findUserByUsername(String username);

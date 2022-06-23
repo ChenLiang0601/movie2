@@ -4,8 +4,10 @@ import com.movie2.bean.Comments;
 import com.movie2.mapper.CommentsMapper;
 import com.movie2.service.CommentsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -30,6 +32,19 @@ public class CommentsServiceImpl extends ServiceImpl<CommentsMapper, Comments> i
         boolean flag=false;
         try{
             commentsMapper.deleteById(user_id);
+            flag=true;
+        }catch(Exception e){
+            System.out.println("删除失败comment!");
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean delete(String comment) {
+        boolean flag=false;
+        try{
+            commentsMapper.deleteByComment(comment);
             flag=true;
         }catch(Exception e){
             System.out.println("删除失败comment!");

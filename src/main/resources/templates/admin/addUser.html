@@ -7,97 +7,79 @@
 </head>
 <body>
 <blockquote class="layui-elem-quote layui-text">
-    <h2>编辑信息</h2>
+    <h2>添加信息</h2>
 </blockquote>
 
-<form class="layui-form" th:action="@{/admin/toEditMovie}" method="post">
+<form class="layui-form" th:action="@{/admin/toAddUser}" method="post">
     <!--隐藏字段action，用来区分增加和编辑行为-->
     <input type="hidden" name="action" id="action">
     <!--隐藏字段id，用于提供编辑需要的主键-->
     <input type="hidden" name="id" id="id">
     <!--隐藏字段request_type，用于提供请求方式:get,post,put-->
     <input type="hidden" name="request_type" id="request_type">
-    <!--隐藏字段request_type，用于提供请求方式:get,post,put-->
-    <div th:object="${movies}" class="layui-form-item" style="display: table;width: 96%">
-        <input th:value="${movies.movieId}" type="hidden" name="movieId" id="movieId">
+
+    <div class="layui-form-item" style="display: table;width: 96%">
         <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">电影名称</label>
+            <label class="layui-form-label">用户名</label>
             <div class="layui-input-block">
-                <input th:value="${movies.name}" type="text" id="name" name="name" placeholder="请输入电影名称"
-                       autocomplete="off" class="layui-input" lay-verify="name">
+                <input type="text" id="username" name="username" placeholder="请输入用户名称"
+                       autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">电影类型</label>
+            <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input th:value="${movies.types}" type="text" id="types" name="types" placeholder="请输入电影类型"
+                <input type="text" id="password" name="password" placeholder="请输入密码"
                        autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
     </div>
 
     <div class="layui-form-item" style="display: table;width: 96%">
-<!--        <div class="layui-form-item" style="display: table-cell;width: 50%">-->
-<!--            <label class="layui-form-label">发布日期</label>-->
-<!--            <div class="layui-input-block">-->
-<!--                <input th:value="${movies.releaseDate}" type="text" name="releaseDate" id="releaseDate" autocomplete="off" class="layui-input">-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="layui-form-item" style="display: table-cell;width: 50%">-->
+        <!--            <label class="layui-form-label">发布日期</label>-->
+        <!--            <div class="layui-input-block">-->
+        <!--                <input type="text" name="releaseDate" id="releaseDate" autocomplete="off" class="layui-input">-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">发布日期</label>
+            <label class="layui-form-label">出生日期</label>
             <div class="layui-input-block">
-                <input type="text" th:value="${movies.releaseDate}" name="releaseDate" id="date1" autocomplete="off" class="layui-input">
+                <input type="text" name="age" id="date1" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">评&emsp;&emsp;分</label>
+            <label class="layui-form-label">性&emsp;&emsp;别</label>
             <div class="layui-input-block">
-                <input th:value="${movies.score}" type="text" id="score" name="score" placeholder="请输入评分"
+                <input type="text" id="sex" name="sex" placeholder="请输入性别"
                        autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
     </div>
     <div class="layui-form-item" style="display: table;width: 96%">
         <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">电影简介</label>
+            <label class="layui-form-label">电话号码</label>
             <div class="layui-input-block">
-                <input th:value="${movies.introduction}" type="text" name="introduction" placeholder="请输入电影简介"
+                <input type="text" name="phonenumber" placeholder="请输入电话号码"
                        autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">热&emsp;&emsp;度</label>
+            <label class="layui-form-label">昵&emsp;&emsp;称</label>
             <div class="layui-input-block">
-                <input th:value="${movies.heat}" type="text" name="heat" placeholder=""
+                <input type="text" name="nickname" placeholder="请输入昵称"
                        autocomplete="off" class="layui-input" lay-verify="required">
             </div>
         </div>
     </div>
-    <div class="layui-form-item" style="display: table;width: 96%">
-        <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">导&emsp;&emsp;演</label>
-            <div class="layui-input-block">
-                <input th:value="${movies.director}" type="text" name="director" placeholder="请输入导演"
-                       autocomplete="off" class="layui-input" lay-verify="required">
-            </div>
-        </div>
-        <div class="layui-form-item" style="display: table-cell;width: 50%">
-            <label class="layui-form-label">演&emsp;&emsp;员</label>
-            <div class="layui-input-block">
-                <input th:value="${movies.actor}" type="text" name="actor" placeholder="请输入演员"
-                       autocomplete="off" class="layui-input" lay-verify="required">
-            </div>
-        </div>
-    </div>
-    <input th:value="${movies.image}" type="hidden"  name="image" class="image">
     <center>
+    <input type="hidden" name="img" class="image">
     <div class="layui-form-item" style="display: table;width: 96%">
         <label class="layui-form-label ">照片:</label>
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="test1">上传图片</button>
             <div class="layui-upload-list">
-                <img width="50%" height="auto" th:src="@{../../static/image/{id}(id=${movies.image})}" class="layui-upload-img" id="demo1">
-<!--                <img   width="100px" />-->
+                <img width="50%" height="auto" class="layui-upload-img" id="demo1">
                 <p id="demoText"></p>
             </div>
         </div>
@@ -117,12 +99,13 @@
         var $ = layui.jquery
             ,upload = layui.upload;
 
+
         var layer = layui.layer
             ,laydate = layui.laydate;
 
         //日期
         laydate.render({
-            elem: '#releaseDate'
+            elem: '#age'
         });
         laydate.render({
             elem: '#date1'
@@ -133,7 +116,7 @@
             elem: '#test1'
             ,url: '/admin/uploadFile/'
             ,accept:'images'
-            ,size:500000
+            ,size:50000
             ,before: function(obj){
 
                 obj.preview(function(index, file, result){
