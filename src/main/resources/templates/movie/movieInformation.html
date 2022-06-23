@@ -1,10 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head lang="en">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影信息展示</title>
+    <link href="../../static/layui/css/layui.css" rel="stylesheet">
+    <script src="../../static/layui/layui.js"></script>
+    <style>
+        h1 {
+            padding-right: 100px;
+            font: 35px/1.5 Tahoma, Helvetica, Arial, '宋体', sans-serif;
+        }
+
+        p {
+            font: 17px/1.5 Tahoma, Helvetica, Arial, '宋体', sans-serif;
+        }
+
+        body {
+            display: block;
+        }
+    </style>
+
 </head>
+<script>
+    layui.use(['rate'], function() {
+        var rate = layui.rate;
+        rate.render({
+            elem: '#test4',
+            value: 0, //初始值
+            half: true //开启半星
+        })
+    });
+</script>
+
 <body>
-电影信息页
+<div class="layui-container" style="height: 90px; width:1540px; background-color:#a6a6a6">
+    <div class="layui-row layui-col-space30">
+        <div class="layui-col-md5" style="width: 220px;"></div>
+        <div class="layui-col-md5" style="height: 90px;width:500px;">
+            <div style="padding: 18px;">
+                <h1 th:text="${movies.name}"></h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container" style="height: 270px;width:1100px;">
+    <div class="layui-row layui-col-space30">
+        <div class="layui-col-md5" style="height: 270px;width:250px;">
+            <div style="height:270px;width:300px">
+                <img th:src="@{static/img/{id}(id=${movies.image})}" style="height: 250px;width: 190px;">
+
+            </div>
+        </div>
+        <div class="layui-col-md5" style="height: 270px;width:800px;">
+                <h3 th:text="${movies.director}">导演：</h3>
+                <h3 th:text="${movies.actor}">主演：</h3>
+                <p th:text="${movies.type}">类型：</p>
+                <p th:text="${movies.release_date}">上映日期：</p>
+                <p th:text="${movies.introduction}">简介：在游戏机厅做着兼职“小丑”的郑开司（李易峰 饰），幼时父亲突然失踪，母亲重病住院，使得郑开司的生活非常拮据。发小“大虾米”（曹炳琨 饰）借口买房骗下了郑开司父亲留下的房产，还给他带来了巨额的欠债。神秘人物（迈克尔·道格拉斯 Michael Douglas 饰）出现，告诉郑开司，只要参加“命运号”游轮上的神秘游戏，就有机会偿还完所有欠款，一无所有的郑开司为了给青梅竹马的护士刘青（周冬雨 饰）和母亲更好的生活，只得登上游轮，开始了生存游戏，一场以“剪刀、石头、布”展开的生死较量即将登场……</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container" style="height: 30px;width:auto;"></div>
+
+<div class="layui-container" style="height: 60px; width:1540px;">
+    <div class="layui-row layui-col-space30">
+        <div class="layui-col-md5" style="width: 220px;"></div>
+        <div class="layui-col-md5" style="height: 40px;width:500px;">
+            评分：
+            <div id="test4" style="height:40px;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container" style="height: 120px; width:1540px;">
+    <div class="layui-row layui-col-space30">
+        <div class="layui-col-md5" style="width: 220px;"></div>
+        <div class="layui-col-md5" style="height: 40px;width:500px;">
+            <i class="layui-icon">&#xe642;</i>写影评
+            <div>
+                <input type="text" name="" placeholder="写影评" style="height:40px;width:1000px" />
+            </div>
+            <div style="height: 10px;width:100px;padding: 5px;">
+                <form action="" method="post">
+                    <input type="submit" value="提交" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-container" style="height: 60px; width:1540px;">
+    <div class="layui-row layui-col-space30">
+        <div class="layui-col-md5" style="width: 220px;"></div>
+        <div class="layui-col-md5" style="height: 40px;width:1050px;">
+            <i class="layui-icon">&#xe63c;</i> 影评
+            <hr>
+            <p th:text="${comments.user_id}">xxx看过</p>
+            <p th:text="${comments.time}">2020/05/21</p>
+            <p th:text="${comments.comment}">片子很惊艳，故事的完整性，逻辑性，可看性，整体完成度太高了，真实世界与想象的自由接驳，封闭空间的人性实验，烧脑的游戏规则，必须分分秒秒跟着主人公去计算和体验。</p>
+            <hr>
+        </div>
+    </div>
+</div>
 </body>
 </html>

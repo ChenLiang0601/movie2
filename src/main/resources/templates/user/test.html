@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>修改个人信息</title>
+    <link rel="stylesheet" href="static/css/reset.css" />
+    <link rel="stylesheet" href="static/css/updateuser.css" />
+    <link rel="stylesheet" href="../../static/layui/css/layui.css" tppabs="../../static/layui/css/layui.css" media="all">
+</head>
+<body>
+<div class="big">
+    <header>
+        <h1>修改个人信息</h1>
+        <form action="Home.html" method="post">
+            <input id="d" type="image" src="static/img/return.png" />
+        </form>
+    </header>
+</div>
+
+<form action="UserLogin.html" method="post">
+    <section>
+        <input type="hidden" name="img" class="image">
+        <div class="layui-upload-list">
+            <img style="height:120px;width:120px;border-radius:50%"  class="layui-upload-img" id="demo1">
+        </div>
+        <div>
+            <button type="button" class="layui-btn" id="test1" style="height: 30px;width:100px">上传图片</button>
+        </div>
+        <div>
+            <img id="t" src="static/img/username.png">
+            <span>昵&nbsp &nbsp &nbsp &nbsp称：</span>
+            <input type="text" name="username" placeholder="Your username" />
+        </div>
+        <div>
+            <img id="t" src="static/img/password.png">
+            <span>密&nbsp &nbsp &nbsp &nbsp码：</span>
+            <input type="password" placeholder="password" name="password" />
+        </div>
+        <div>
+            <img id="t" src="static/img/birth.png">
+            <span>出生日期：</span>
+            <input type="date" name="age" placeholder="yyyy-MM-dd">
+        </div>
+        <div>
+            <img id="t" src="static/img/sex.png">
+            <span>性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别:</span>
+            <input id="e" type="radio" checked="checked" name="sex" />男
+            <input id="e" type="radio" name="sex">女<br>
+        </div>
+
+        <div>
+            <img id="t" src="static/img/xihuan.png">
+            <span>喜欢类型：</span>
+            <input id="f" type="checkbox" name="utype" value="喜剧">喜剧
+            <input id="f" type="checkbox" name="utype" value="恐怖">恐怖
+            <input id="f" type="checkbox" name="utype" value="戏剧">戏剧
+        </div>
+        <div>
+            <input id="btn" type="submit" value="保存" style="text-align: center;" />
+        </div>
+    </section>
+</form>
+
+<footer>
+    <p>&copy Movie Recommond System by group 1 2022/06/17</p>
+</footer>
+<script src="../../static/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+
+        var layer = layui.layer
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#age'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: 'uploadFile'
+            ,accept:'images'
+            ,size:50000
+            ,before: function(obj){
+
+                obj.preview(function(index, file, result){
+
+                    $('#demo1').attr('src', result);
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #4cae4c;">上传成功</span>');
+                //将图片的名字放在表单中，添加的时候得放在数据库里面
+                $(function(){
+                    $("#fileName").val(res.msg);
+                })
+                var fileupload = $(".image");
+                fileupload.attr("value",res.msg);
+                console.log(fileupload.attr("value"));
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+    });
+</script>
+
+</body>
+
+</html>

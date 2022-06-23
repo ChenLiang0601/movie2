@@ -3,7 +3,10 @@ package com.movie2.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.movie2.bean.*;
+import com.movie2.bean.Comments;
+import com.movie2.bean.Movies;
+import com.movie2.bean.Types;
+import com.movie2.bean.User;
 import com.movie2.mapper.TypesMapper;
 import com.movie2.service.*;
 import com.movie2.vo.adminMovieVo;
@@ -45,8 +48,6 @@ public class AdminController {
     @Autowired
     private CommentsService commentsService;
     @Autowired
-    private CommentViewService commentViewService;
-    @Autowired
     private UserService userService;
     @Autowired
     private MoviesService moviesService;
@@ -54,27 +55,97 @@ public class AdminController {
     /*
     * 管理员登录
     * */
-    @RequestMapping("")
-    public String login()
-    {
-        return "admin/adminLogin";
-    }
     @RequestMapping("/login")
     public String adminLogin(@RequestParam("adminUsername") String adminUsername, @RequestParam("adminPwd") String adminPwd) {
-        System.out.println(adminUsername+adminPwd);
         if (adminService.adminLogin(adminUsername, adminPwd) != null)
-            return "admin/adminHome";
+            return "user/loginSuccess";
         else
-            return "admin/adminLogin";
+            return "user/userLogin";
     }
+
+    @RequestMapping("/types")
+    public String index() {
+        return "type/typeList";
+    }
+
     /**
-     * 管理员主界面
+     * 添加电影类型
+     * @param type
      * @return
      */
-    @RequestMapping("/adminHome")
-    public String adminHome() {
-        return "admin/adminHome";
+    @RequestMapping("/addType")
+    public String addType(String type){
+        typesService.addType(type);
+        return "type/typeList";
     }
+    /**
+     * 删除电影类型
+     */
+    @RequestMapping("deleteType")
+    public String deleteType(Integer type_id){
+        typesService.deleteType(type_id);
+        return "type/typeList";
+    }
+    /*
+    * 查找电影类型
+    * */
+    @RequestMapping("/findType")
+    public String findType(String type){
+        typesService.findType(type);
+        List<Types> types = typesService.findType(type);
+        System.out.println(types);
+        return "type/typeList";
+    }
+    /*
+    * 查找所有类型
+    * 电影类型管理
+    * */
+    @RequestMapping("/findAllTypes")
+    public String findAllTypes(){
+        typesService.findAllTypes();
+        List<Types> types = typesService.findAllTypes();
+        System.out.println(types);
+        return "type/typeList";
+    }
+    @RequestMapping("/comments")
+    public String index1() {
+        return "comment/commentList";
+    }
+
+    @RequestMapping("/findAllComments")
+    public String findAllComments(){
+        commentsService.findAllComments();
+        List<Comments> comments = commentsService.findAllComments();
+        System.out.println(comments);
+        return "comment/commentList";
+    }
+    /**
+     * 评论管理
+     * @param comment
+     * @return
+     */
+    @RequestMapping("/findComment")
+    public String findComment(String comment){
+        commentsService.findComment(comment);
+        List<Comments> comments= commentsService.findComment(comment);
+        System.out.println(comments);
+        return "comment/commentList";
+    }
+
+    /**
+     * 通过用户名模糊查找用户
+     * 用于用户管理
+     * @param username
+     * @return
+     */
+    @RequestMapping("findUser")
+    public String findUserByUsername(String username){
+        userService.findUserByUsername(username);
+        List<User> users = userService.findUserByUsername(username);
+        System.out.println(users);
+        return "user/userList";
+    }
+
     /**
      * 电影管理模块
      */
@@ -87,6 +158,7 @@ public class AdminController {
     public dataVo List(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize){
         return adminService.finddata(pageNum, pageSize);
     }
+
     @RequestMapping(value ="adminMovie" ,method = RequestMethod.GET)
     public String  findAllMovies(Model model)
     {
@@ -94,6 +166,7 @@ public class AdminController {
         model.addAttribute("movies", movies);
         return "admin/adminMovie";
     }
+
     /**
      * 删除电影
      */
@@ -129,6 +202,7 @@ public class AdminController {
         model.addAttribute("movies", movies);
         return "admin/eidtMovie";
     }
+//    @ResponseBody
     @RequestMapping(value = "toEditMovie")
     public String toEditMovie(@ModelAttribute("Movies") Movies movies)
     {
@@ -146,190 +220,6 @@ public class AdminController {
         System.out.println(name);
         return adminService.searchMovie(1, 10,name);
     }
-    /**
-     * 电影类型管理模块
-     */
-    /**
-     * 显示所有电影类型
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("typesList")
-    public dataVo TypesList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize){
-        return adminService.findTypes(pageNum, pageSize);
-    }
-    @RequestMapping(value ="adminTypes" ,method = RequestMethod.GET)
-    public String  findAllTypes(Model model)
-    {
-        List<Types> types = typesService.findAllTypes();
-        System.out.println(types);
-        model.addAttribute("types", types);
-        return "admin/adminTypes";
-    }
-    /**
-     * 删除电影类型
-     */
-    @ResponseBody
-    @RequestMapping(value = "deleteTypes",method = RequestMethod.DELETE)
-    public boolean deleteTypes(@RequestParam("typeId") Integer typeId)
-    {
-        return  typesService.deleteType(typeId);
-    }
-    /**
-     * 添加电影类型
-     */
-    @RequestMapping(value = "addTypes")
-    public String addTypes(@ModelAttribute("Movies") Types types)
-    {
-        return "admin/addTypes";
-    }
-    @RequestMapping(value = "toAddTypes")
-    public String toAddTypes(@ModelAttribute("Types") String type)
-    {
-        System.out.println(type);
-        typesService.addType(type);
-        return "admin/addTypes";
-    }
-    /**
-     * 编辑电影类型
-     */
-    @RequestMapping(value = "editTypes")
-    public String editTypes(Model model,@RequestParam("typeId") Integer typeId)
-    {
-        System.out.println(typeId);
-        Types types=typesService.getById(typeId);
-        model.addAttribute("types", types);
-        return "admin/editTypes";
-    }
-    @RequestMapping(value = "toEditTypes")
-    public String toEditMovie(@ModelAttribute("Types") Types types)
-    {
-        System.out.println(types);
-        typesService.updateTypes(types);
-        return "redirect:/admin/editTypes?typeId="+types.getTypeId();
-    }
-    /**
-     * 电影类型模糊查询
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("searchTypes")
-    public dataVo searchTypes(@RequestParam String type){
-        System.out.println(type);
-        return adminService.searchTypes(1,10,type);
-    }
-    /**
-     * 用户管理模块
-     */
-    /**
-     * 显示所有用户
-     */
-    @ResponseBody
-    @RequestMapping("userList")
-    public dataVo userList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize){
-        return adminService.findUser(pageNum,pageSize);
-    }
-    @RequestMapping(value ="adminUser" ,method = RequestMethod.GET)
-    public String  findALLUser(Model model)
-    {
-        List<User> users = userService.findAllUser();
-        model.addAttribute("users", users);
-        return "admin/adminUser";
-    }
-    /**
-     * 删除用户
-     */
-    @ResponseBody
-    @RequestMapping(value = "deleteUser",method = RequestMethod.DELETE)
-    public boolean deleteUser(@RequestParam("userId") Integer userId)
-    {
-        return  userService.deleteUser(userId);
-    }
-    /**
-     * 添加用户
-     */
-    @RequestMapping(value = "addUser")
-    public String addUser(@ModelAttribute("User") User user)
-    {
-        return "admin/addUser";
-    }
-    @RequestMapping(value = "toAddUser")
-    public String toAddUser(@ModelAttribute("User") User user)
-    {
-        System.out.println(user);
-        userService.register(user);
-        return "admin/addUser";
-    }
-    /**
-     * 编辑用户
-     */
-    @RequestMapping(value = "editUser")
-    public String editUser(Model model,@RequestParam("userId") Integer userId)
-    {
-        System.out.println(userId);
-        User user = userService.getById(userId);
-        model.addAttribute("user", user);
-        return "admin/editUser";
-    }
-    @RequestMapping(value = "toEditUser")
-    public String toEditUser(@ModelAttribute("User") User user)
-    {
-        System.out.println(user);
-        userService.updateUser(user);
-        return "redirect:/admin/editUser?userId="+user.getUserId();
-    }
-    /**
-     * 用户名字模糊查询
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("searchUser")
-    public dataVo searchUser(@RequestParam("username") String username){
-        System.out.println(username);
-        return adminService.searchUser(1,10,username);
-    }
-
-
-    /**
-     * 评论管理模块
-     */
-    /**
-     * 显示所有评论
-     */
-    @ResponseBody
-    @RequestMapping("commentsList")
-    public dataVo commentsList(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize){
-        return adminService.findComments(pageNum,pageSize);
-    }
-    @RequestMapping(value ="adminComments" ,method = RequestMethod.GET)
-    public String  adminComments(Model model)
-    {
-        List<CommentView> commentViews = commentViewService.findAllComments();
-        System.out.println(commentViews);
-        model.addAttribute("commentViews", commentViews);
-        return "admin/adminComments";
-    }
-    /**
-     * 删除评论
-     */
-    @ResponseBody
-    @RequestMapping(value = "deleteComments",method = RequestMethod.DELETE)
-    public boolean deleteComments(@RequestParam("comment") String comment)
-    {
-        return  commentsService.delete(comment);
-    }
-    /**
-     * 电影评论模糊查询
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("searchComments")
-    public dataVo searchComments(@RequestParam("comment") String comment){
-        System.out.println(comment);
-        return adminService.searComments(1,10,comment);
-//        return adminService.searchUser(1,10,username);
-    }
-
     //图片上传
     @ResponseBody
     @RequestMapping("/uploadFile")
@@ -344,7 +234,7 @@ public class AdminController {
         }
         //路径+文件名
         //文件名：file.getOriginalFilename()
-        String finalFilePath =filePath+file.getOriginalFilename().trim();
+        String finalFilePath =file.getOriginalFilename().trim();
         File desFile = new File(finalFilePath);
         if (desFile.exists()) {
             desFile.delete();
@@ -365,5 +255,6 @@ public class AdminController {
         System.out.println(json);
         return json;
     }
+
 }
 

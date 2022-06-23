@@ -1,0 +1,164 @@
+header {
+    width: 100%;
+    border-bottom: 2px solid #e02227;
+}
+
+p {
+    font-size: 17px;
+}
+
+#e {
+    width: 50px;
+    height: 18px;
+    border: 1px solid rgb(206, 206, 206);
+    margin: 5px -10px 5px auto;
+}
+
+#f {
+    width: 30px;
+    height: 18px;
+    border: 1px solid rgb(206, 206, 206);
+    margin: 5px 2px 5px auto;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+header>h1 {
+    margin-left: 200px;
+    padding: 10px 0;
+    margin-top: 20px;
+    margin-bottom: 18px;
+    font-size: 30px;
+    color: #ea5850;
+}
+
+#d {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin: -200px auto 38px 1400px;
+}
+
+section {
+    margin: 40px 0 0 230px;
+}
+
+section>div:nth-child(1) {
+    text-indent: 450px;
+}
+
+section>div:nth-child(2) {
+    text-indent: 460px;
+    margin: 30px 0;
+}
+
+section>div:nth-child(3) {
+    text-indent: 470px;
+    margin: 30px 0;
+}
+
+section>div>input {
+    height: 30px;
+    width: 260px;
+}
+
+section>div:nth-child(4) {
+    text-indent: 280px;
+    margin: 30px 0;
+}
+
+section>div:nth-child(5) {
+    text-indent: 280px;
+    margin: 30px 0;
+}
+
+section>div:nth-child(6) {
+    text-indent: 280px;
+    margin: 30px 0;
+}
+
+section>div:nth-child(7) {
+    text-indent: 280px;
+    margin: 30px 0;
+}
+section>div:nth-child(8) {
+    text-indent: 280px;
+    margin: 30px 0;
+}
+
+section>div:nth-child(9) {
+    text-indent: 500px;
+    margin: 30px 0;
+}
+
+section>div:nth-child(1)>span:nth-child(7) {
+    color: #9a9a9a;
+    font-size: 14px;
+}
+
+section>div>span {
+    padding-right: 5px;
+}
+
+section>div:nth-child(5)>div {
+    width: 88px;
+    padding: 2px 0;
+    background: #eeeeee;
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+#btn {
+    width: 60px;
+    height: 30px;
+    border: 0;
+    border-radius: 2px;
+    background: #ec454a;
+    color: white;
+    font-size: 14px;
+}
+
+section>p {
+    text-indent: 400px;
+    color: #ec464b;
+    font-size: 14px;
+    margin: 0 0 30px 90px;
+}
+
+input {
+    padding-left: 8px;
+}
+
+#t {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+footer {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #d1d1d1;
+    border-top: 2px solid #eeeeee;
+}
+
+footer>p {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.big {
+    width: 100%;
+    margin: 0 auto;
+}
+
+@keyframes denglu {
+    0% {
+        width: 10px;
+    }
+}
